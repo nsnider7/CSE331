@@ -137,25 +137,32 @@ class DLL:
         Inserts a value into the front of the list
         :param value: the value to insert
         """
-        old_head = self.head
-        self.head = DLLNode(value)
-        self.head.set_next(old_head)
-        self.size += 1
-        # self.head.set_next(old_head)
+        newNode = DLLNode(value)
+        lst = DLL()
+        if self.size == 0:
+            self.head = newNode
+            self.tail = newNode
+            self.size +=1
+        else:
+            self.head.set_previous(newNode)
+            newNode.set_next(self.head)
+            self.head = newNode
+            self.size +=1
 
     def insert_back(self, value):
         """
         Inserts a value into the back of the list
         :param value: the value to insert
         """
+        newNode = DLLNode(value)
         if self.size == 0:
-            self.head = DLLNode(value)
-            self.tail = DLLNode(value)
+            self.head = newNode
+            self.tail = newNode
             self.size += 1
         else:
-            old_tail = self.tail
-            self.tail = DLLNode(value)
-            self.tail.set_previous(old_tail)
+            self.tail.set_next(newNode)
+            newNode.set_previous(self.tail)
+            self.tail = newNode
             self.size += 1
 
     def delete_front(self):
