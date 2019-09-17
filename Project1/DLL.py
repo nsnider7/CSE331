@@ -142,12 +142,12 @@ class DLL:
         if self.size == 0:
             self.head = newNode
             self.tail = newNode
-            self.size +=1
+            self.size += 1
         else:
             self.head.set_previous(newNode)
             newNode.set_next(self.head)
             self.head = newNode
-            self.size +=1
+            self.size += 1
 
     def insert_back(self, value):
         """
@@ -169,27 +169,87 @@ class DLL:
         """
         Deletes the front node of the list
         """
-        self.head = self.head.get_next()
+        if self.size == 1:
+            self.head = None
+            self.tail = None
+            self.size = 0
+        if self.size != 0:
+            sucNode = self.head.get_next()
+            self.head = sucNode
+            self.head.set_previous(None)
+            self.size -= 1
 
     def delete_back(self):
         """
         Deletes the back node of the list
         """
-        self.tail.set_value(self.tail.get_previous())
+        if self.size == 1:
+            self.head = None
+            self.tail = None
+            self.size = 0
+        if self.size != 0:
+            prevNode = self.tail.get_previous()
+            self.tail = prevNode
+            self.tail.set_next(None)
+            self.size -= 1
 
     def delete_value(self, value):
         """
         Deletes the first instance of the value in the list.
         :param value: The value to remove
         """
-        pass
+        # Define the node, prevNode, sucNode
+        if self.size > 0:
+            first_node = self.find_first(value)
+            if first_node != None:
+                if first_node == self.head:
+                    prevNode = None
+                    sucNode = first_node.get_next()
+                elif first_node == self.tail:
+                    prevNode = first_node.get_previous()
+                    sucNode = None
+                else:
+                    prevNode = first_node.get_previous()
+                    sucNode = first_node.get_next()
+                # Now Delete
+                if first_node == self.head:
+                    self.head = sucNode
+                if first_node == self.tail:
+                    self.tail = prevNode
+                if sucNode is not None:
+                    sucNode.set_previous(prevNode)
+                if prevNode is not None:
+                    prevNode.set_next(sucNode)
 
     def delete_all(self, value):
         """
         Deletes all instances of the value in the list
         :param value: the value to remove
         """
-        pass
+        first_node = self.find_first(value)
+        if first_node != None:
+            while first_node != None:
+                # Define the node, prevNode, sucNode
+                first_node = self.find_first(value)
+                if first_node == self.head:
+                    prevNode = None
+                    sucNode = first_node.get_next()
+                elif first_node == self.tail:
+                    prevNode = first_node.get_previous()
+                    sucNode = None
+                else:
+                    prevNode = first_node.get_previous()
+                    sucNode = first_node.get_next()
+                # Now Delete
+                if first_node == self.head:
+                    self.head = sucNode
+                if first_node == self.tail:
+                    self.tail = prevNode
+                if sucNode is not None:
+                    sucNode.set_previous(prevNode)
+                if prevNode is not None:
+                    prevNode.set_next(sucNode)
+                first_node = self.find_first(value)
 
     def find_first(self, value):
         """
@@ -197,7 +257,24 @@ class DLL:
         :param value: the value to find
         :return: [DLLNode] the first node containing the value
         """
-        pass
+        node = self.head
+        sucNode = self.head.get_next()
+        prevNode = None
+        while node is not None:
+            if str(value) == str(node):
+                return node
+            prevNode = node
+            if node.get_next() == None:
+                node = None
+                sucNode = None
+            else:
+                node = node.get_next()
+            if sucNode is not None:
+                if node.get_next() == None:
+                    sucNode = None
+                else:
+                    sucNode = node.get_next()
+        return None
 
     def find_last(self, value):
         """
@@ -205,7 +282,24 @@ class DLL:
         :param value: the value to find
         :return: [DLLNode] the last node containing the value
         """
-        pass
+        node = self.tail
+        sucNode = self.head.get_previous()
+        prevNode = None
+        while node is not None:
+            if str(value) == str(node):
+                return node
+            prevNode = node
+            if node.get_previous() == None:
+                node = None
+                sucNode = None
+            else:
+                node = node.get_previous()
+            if sucNode is not None:
+                if node.get_previous() == None:
+                    sucNode = None
+                else:
+                    sucNode = node.get_previous()
+        return None
 
     def find_all(self, value):
         """
@@ -213,7 +307,28 @@ class DLL:
         :param value: the value to find
         :return: [List] a list of the nodes containing the value
         """
-        pass
+        node_list = []
+        node = self.head
+        sucNode = self.head.get_next()
+        prevNode = None
+        while node is not None:
+            if str(value) == str(node):
+                node_list.append(node)
+            prevNode = node
+            if node.get_next() == None:
+                node = None
+                sucNode = None
+            else:
+                node = node.get_next()
+            if sucNode is not None:
+                if node.get_next() == None:
+                    sucNode = None
+                else:
+                    sucNode = node.get_next()
+        if len(node_list) == 0:
+            return None
+        else:
+            return node_list
 
     def count(self, value):
         """
