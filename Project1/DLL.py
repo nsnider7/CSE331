@@ -257,24 +257,26 @@ class DLL:
         :param value: the value to find
         :return: [DLLNode] the first node containing the value
         """
-        node = self.head
-        sucNode = self.head.get_next()
-        prevNode = None
-        while node is not None:
-            if str(value) == str(node):
-                return node
-            prevNode = node
-            if node.get_next() == None:
-                node = None
-                sucNode = None
-            else:
-                node = node.get_next()
-            if sucNode is not None:
+        if self.head is not None:
+            node = self.head
+            sucNode = self.head.get_next()
+            prevNode = None
+            while node is not None:
+                if str(value) == str(node):
+                    return node
+                prevNode = node
                 if node.get_next() == None:
+                    node = None
                     sucNode = None
                 else:
-                    sucNode = node.get_next()
-        return None
+                    node = node.get_next()
+                if sucNode is not None:
+                    if node.get_next() == None:
+                        sucNode = None
+                    else:
+                        sucNode = node.get_next()
+        else:
+            return None
 
     def find_last(self, value):
         """
@@ -282,24 +284,26 @@ class DLL:
         :param value: the value to find
         :return: [DLLNode] the last node containing the value
         """
-        node = self.tail
-        sucNode = self.head.get_previous()
-        prevNode = None
-        while node is not None:
-            if str(value) == str(node):
-                return node
-            prevNode = node
-            if node.get_previous() == None:
-                node = None
-                sucNode = None
-            else:
-                node = node.get_previous()
-            if sucNode is not None:
+        if self.tail is not None:
+            node = self.tail
+            sucNode = self.head.get_previous()
+            prevNode = None
+            while node is not None:
+                if str(value) == str(node):
+                    return node
+                prevNode = node
                 if node.get_previous() == None:
+                    node = None
                     sucNode = None
                 else:
-                    sucNode = node.get_previous()
-        return None
+                    node = node.get_previous()
+                if sucNode is not None:
+                    if node.get_previous() == None:
+                        sucNode = None
+                    else:
+                        sucNode = node.get_previous()
+        else:
+            return None
 
     def find_all(self, value):
         """
@@ -308,27 +312,30 @@ class DLL:
         :return: [List] a list of the nodes containing the value
         """
         node_list = []
-        node = self.head
-        sucNode = self.head.get_next()
-        prevNode = None
-        while node is not None:
-            if str(value) == str(node):
-                node_list.append(node)
-            prevNode = node
-            if node.get_next() == None:
-                node = None
-                sucNode = None
-            else:
-                node = node.get_next()
-            if sucNode is not None:
+        if self.head is not None:
+            node = self.head
+            sucNode = self.head.get_next()
+            prevNode = None
+            while node is not None:
+                if str(value) == str(node):
+                    node_list.append(node)
+                prevNode = node
                 if node.get_next() == None:
+                    node = None
                     sucNode = None
                 else:
-                    sucNode = node.get_next()
-        if len(node_list) == 0:
-            return None
+                    node = node.get_next()
+                if sucNode is not None:
+                    if node.get_next() == None:
+                        sucNode = None
+                    else:
+                        sucNode = node.get_next()
+            if len(node_list) == 0:
+                return None
+            else:
+                return node_list
         else:
-            return node_list
+            return None
 
     def count(self, value):
         """

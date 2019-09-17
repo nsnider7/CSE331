@@ -157,11 +157,12 @@ class TestProject1(unittest.TestCase):
             my_lst.insert_back(i)
         my_lst.delete_all(1)
         self.assertEqual(condense(my_lst), [2, 2, 4])
-        self.assertEqual(my_lst.head, 2)
+        self.assertEqual(my_lst.head.get_value(), 2)
         # lst.delete_all(1)
         # self.assertEqual(condense(lst), [2, 3, 4, 5, 6, 2, 4, 9])
 
     def test_finds(self):
+        #Regular get first
         lst = DLL()
         inserts = [9, 16, 5, 58, 32, 1, 4, 58, 67, 2, 4]
 
@@ -174,17 +175,118 @@ class TestProject1(unittest.TestCase):
         self.assertEqual(first.get_next().get_value(), 1)
         self.assertEqual(first.get_previous().get_value(), 58)
 
-        # my tests
+        ## if value not in list
         inserts = [8, 9, 9, 9, 9]
         new_lst = DLL()
         for i in inserts:
             new_lst.insert_back(i)
-        first = new_lst.find_first(0)
+        first = new_lst.find_first(1)
 
         self.assertEqual(first, None)
-        # self.assertEqual(first.get_next().get_value(), None)
-        # self.assertEqual(first.get_previous().get_value(), None)
-        #
+
+        ## if value is head of list
+        inserts = [1, 9, 9, 9, 9]
+        new_lst = DLL()
+        for i in inserts:
+            new_lst.insert_back(i)
+        first = new_lst.find_first(1)
+
+        self.assertEqual(first.get_value(), 1)
+        self.assertEqual(first.get_next().get_value(), 9)
+        self.assertEqual(first.get_previous(), None)
+
+        ## if value is head of list
+        inserts = [1, 9, 9, 9, 2]
+        new_lst = DLL()
+        for i in inserts:
+            new_lst.insert_back(i)
+        first = new_lst.find_first(2)
+
+        self.assertEqual(first.get_value(), 2)
+        self.assertEqual(first.get_next(), None)
+        self.assertEqual(first.get_previous().get_value(), 9)
+
+        ## Duplicates
+        inserts = [1, 9, 9, 9, 2]
+        new_lst = DLL()
+        for i in inserts:
+            new_lst.insert_back(i)
+        first = new_lst.find_first(9)
+
+        self.assertEqual(first.get_value(), 9)
+        self.assertEqual(first.get_next().get_value(), 9)
+        self.assertEqual(first.get_previous().get_value(), 1)
+
+        ## If list is empty
+        new_lst = DLL()
+        first = new_lst.find_first(9)
+        self.assertEqual(first, None)
+
+        ###### Find_all Tests
+        ## list is empty
+        new_lst = DLL()
+        first = new_lst.find_all(9)
+        self.assertEqual(first, None)
+
+        ## Duplicates
+        inserts = [1, 9, 9, 9, 2]
+        new_lst = DLL()
+        for i in inserts:
+            new_lst.insert_back(i)
+        first = new_lst.find_all(9)
+
+        self.assertEqual(first[0].get_value(), 9)
+        self.assertEqual(first[0].get_next().get_value(), 9)
+        self.assertEqual(first[0].get_previous().get_value(), 1)
+        self.assertEqual(first[1].get_value(), 9)
+        self.assertEqual(first[1].get_next().get_value(), 9)
+        self.assertEqual(first[1].get_previous().get_value(), 9)
+        self.assertEqual(first[2].get_value(), 9)
+        self.assertEqual(first[2].get_next().get_value(), 2)
+        self.assertEqual(first[2].get_previous().get_value(), 9)
+        self.assertEqual(len(first), 3)
+
+        ## Value is head
+        inserts = [1, 9, 9, 9, 2]
+        new_lst = DLL()
+        for i in inserts:
+            new_lst.insert_back(i)
+        first = new_lst.find_all(1)
+
+        self.assertEqual(first[0].get_value(), 1)
+        self.assertEqual(first[0].get_next().get_value(), 9)
+        self.assertEqual(first[0].get_previous(), None)
+
+        ## Value is tail
+        inserts = [1, 9, 9, 9, 2]
+        new_lst = DLL()
+        for i in inserts:
+            new_lst.insert_back(i)
+        first = new_lst.find_all(2)
+
+        self.assertEqual(first[0].get_value(), 2)
+        self.assertEqual(first[0].get_next(), None)
+        self.assertEqual(first[0].get_previous().get_value(), 9)
+
+        ## Value is head and tail
+        inserts = [1, 9, 9, 9, 1]
+        new_lst = DLL()
+        for i in inserts:
+            new_lst.insert_back(i)
+        first = new_lst.find_all(1)
+
+        self.assertEqual(first[0].get_value(), 1)
+        self.assertEqual(first[0].get_next().get_value(), 9)
+        self.assertEqual(first[0].get_previous(), None)
+        self.assertEqual(first[1].get_value(), 1)
+        self.assertEqual(first[1].get_next(), None)
+        self.assertEqual(first[1].get_previous().get_value(), 9)
+        self.assertEqual(len(first), 2)
+
+        # self.assertEqual(first.get_next().get_value(), 9)
+        # self.assertEqual(first.get_previous().get_value(), 1)
+
+
 
         last = lst.find_last(2)
 
