@@ -79,6 +79,7 @@ class TestProject1(unittest.TestCase):
                 res.append(node.get_value())
                 node = node.get_next()
             return res
+
         # Delete val
         # head delete test
         lst = DLL()
@@ -87,14 +88,16 @@ class TestProject1(unittest.TestCase):
             lst.insert_back(i)
         lst.delete_value(1)
         self.assertEqual(condense(lst), insert[1:])
+        self.assertEqual(lst.head.get_value(), 2)
 
-        ## head delete test
+        ## tail delete test
         lst = DLL()
         insert = [1, 2, 3, 9]
         for i in insert:
             lst.insert_back(i)
         lst.delete_value(9)
         self.assertEqual(condense(lst), insert[:3])
+        self.assertEqual(lst.tail.get_value(), 3)
 
         ## regular in list delete test
         my_lst = DLL()
@@ -115,7 +118,17 @@ class TestProject1(unittest.TestCase):
         ## empty list
         my_lst = DLL()
         my_lst.delete_value(8)
-        self.assertEqual(my_lst.size, 0)
+        self.assertEqual(my_lst.head, None)
+
+        ## only item plus delete
+        my_lst = DLL()
+        my_insert = [1]
+        for i in my_insert:
+            my_lst.insert_back(i)
+        my_lst.delete_value(1)
+        self.assertEqual(my_lst.head, None)
+        self.assertEqual(my_lst.tail, None)
+        self.assertEqual(my_lst.get_size(), 0)
 
         ## Delete all
         ## no val
@@ -133,6 +146,7 @@ class TestProject1(unittest.TestCase):
             my_lst.insert_back(i)
         my_lst.delete_all(2)
         self.assertEqual(condense(my_lst), [1, 4, 5])
+        self.assertEqual(my_lst.get_size(), 3)
 
         ## val is head
         my_lst = DLL()
@@ -162,7 +176,8 @@ class TestProject1(unittest.TestCase):
         # self.assertEqual(condense(lst), [2, 3, 4, 5, 6, 2, 4, 9])
 
     def test_finds(self):
-        #Regular get first
+        ## Find_first Tests
+        # Regular get first
         lst = DLL()
         inserts = [9, 16, 5, 58, 32, 1, 4, 58, 67, 2, 4]
 
@@ -226,9 +241,9 @@ class TestProject1(unittest.TestCase):
         ## list is empty
         new_lst = DLL()
         first = new_lst.find_all(9)
-        self.assertEqual(first, None)
+        self.assertEqual(first, [])
 
-        ## Duplicates
+        ## Duplicates 3
         inserts = [1, 9, 9, 9, 2]
         new_lst = DLL()
         for i in inserts:
@@ -245,6 +260,20 @@ class TestProject1(unittest.TestCase):
         self.assertEqual(first[2].get_next().get_value(), 2)
         self.assertEqual(first[2].get_previous().get_value(), 9)
         self.assertEqual(len(first), 3)
+
+        ## Duplicates 2
+        inserts = [1, 9, 9, 2]
+        new_lst = DLL()
+        for i in inserts:
+            new_lst.insert_back(i)
+        first = new_lst.find_all(9)
+
+        self.assertEqual(first[0].get_value(), 9)
+        self.assertEqual(first[0].get_next().get_value(), 9)
+        self.assertEqual(first[0].get_previous().get_value(), 1)
+        self.assertEqual(first[1].get_value(), 9)
+        self.assertEqual(first[1].get_next().get_value(), 2)
+        self.assertEqual(first[1].get_previous().get_value(), 9)
 
         ## Value is head
         inserts = [1, 9, 9, 9, 2]
@@ -283,10 +312,16 @@ class TestProject1(unittest.TestCase):
         self.assertEqual(first[1].get_previous().get_value(), 9)
         self.assertEqual(len(first), 2)
 
-        # self.assertEqual(first.get_next().get_value(), 9)
-        # self.assertEqual(first.get_previous().get_value(), 1)
+        ## One element
+        inserts = [1]
+        new_lst = DLL()
+        for i in inserts:
+            new_lst.insert_back(i)
+        first = new_lst.find_all(1)
 
-
+        self.assertEqual(first[0].get_value(), 1)
+        self.assertEqual(first[0].get_next(), None)
+        self.assertEqual(first[0].get_previous(), None)
 
         last = lst.find_last(2)
 
@@ -309,34 +344,133 @@ class TestProject1(unittest.TestCase):
         self.assertEqual(second.get_next().get_value(), 67)
         self.assertEqual(second.get_previous().get_value(), 4)
 
-    # def test_count_sum(self):
-    #     lst = DLL()
-    #     inserts = [1, 3, 1, 4, 5, 6, 1, 3, 8]
-    #
-    #     for i in inserts:
-    #         lst.insert_back(i)
-    #
-    #     self.assertEqual(lst.count(1), 3)
-    #     self.assertEqual(lst.sum(), 32)
-    #
-    # def test_remove_middle(self):
-    #     def condense(linkedlist):
-    #         res = list()
-    #         node = linkedlist.head
-    #         while node is not None:
-    #             res.append(node.get_value())
-    #             node = node.get_next()
-    #         return res
-    #
-    #     lst = DLL()
-    #     inserts = [1, 2, 3, 4, 5]
-    #
-    #     for i in inserts:
-    #         lst.insert_back(i)
-    #
-    #     new = remove_middle(lst)
-    #
-    #     self.assertEqual(condense(new), [1, 2, 4, 5])
+    def test_count_sum(self):
+        ## count tests
+        ## Empty list
+        lst = DLL()
+        self.assertEqual(lst.count(1), 0)
+
+        ## Value not in list
+        lst = DLL()
+        inserts = [1, 2, 3, 4, 5]
+        for i in inserts:
+            lst.insert_back(i)
+        self.assertEqual(lst.count(9), 0)
+
+        ## Regular list
+        lst = DLL()
+        inserts = [1, 3, 1, 4, 5, 6, 1, 3, 8]
+        for i in inserts:
+            lst.insert_back(i)
+        self.assertEqual(lst.count(1), 3)
+
+        lst = DLL()
+        inserts = [1, 1, 1, 1, 1, 1, 1, 1]
+        for i in inserts:
+            lst.insert_back(i)
+        self.assertEqual(lst.count(1), 8)
+
+        lst = DLL()
+        inserts = [8, 3, 1, 4, 5, 6, 1, 3, 8]
+        for i in inserts:
+            lst.insert_back(i)
+        self.assertEqual(lst.count(8), 2)
+
+        ## no numbers list
+        lst = DLL()
+        inserts = ['a', 'b', 'c', 'd']
+        for i in inserts:
+            lst.insert_back(i)
+        self.assertEqual(lst.count('a'), 1)
+
+        ## sum tests
+        ## Empty list
+        lst = DLL()
+        self.assertEqual(lst.sum(), 0)
+
+        ## sum of regular list
+        lst = DLL()
+        inserts = [1, 2, 3, 4, 5]
+        for i in inserts:
+            lst.insert_back(i)
+        self.assertEqual(lst.sum(), 15)
+        self.assertEqual(lst.get_size(), 5)
+
+        ## if list has strings or floats
+        lst = DLL()
+        inserts = ['a', 'b', 'b', 'c', 'd']
+        for i in inserts:
+            lst.insert_back(i)
+        self.assertEqual(lst.sum(), 0)
+
+        lst = DLL()
+        inserts = [1.1, 1.1]
+        for i in inserts:
+            lst.insert_back(i)
+        self.assertEqual(lst.sum(), 2.2)
+
+        ## 1 item in list
+        lst = DLL()
+        inserts = [1]
+        for i in inserts:
+            lst.insert_back(i)
+        self.assertEqual(lst.sum(), 1)
+
+    def test_remove_middle(self):
+        def condense(lst):
+            res = list()
+            node = lst.head
+            while node is not None:
+                res.append(node.get_value())
+                node = node.get_next()
+            return res
+
+        ## Odd Remove
+        lst = DLL()
+        inserts = [1, 2, 3, 4, 5]
+        for i in inserts:
+            lst.insert_back(i)
+        new = remove_middle(lst)
+        self.assertEqual(condense(new), [1, 2, 4, 5])
+        self.assertEqual(new.head.get_value(), 1)
+        self.assertEqual(new.tail.get_value(), 5)
+
+        ## Even Remove
+        lst = DLL()
+        inserts = [1, 2, 4, 5]
+        for i in inserts:
+            lst.insert_back(i)
+        new = remove_middle(lst)
+        self.assertEqual(condense(new), [1, 5])
+        self.assertEqual(new.head.get_next().get_value(), 5)
+        self.assertEqual(new.tail.get_previous().get_value(), 1)
+
+        ## Empty param
+        lst = DLL()
+        new = remove_middle(lst)
+        self.assertEqual(lst.get_size(), 0)
+        self.assertEqual(new.head, None)
+        self.assertEqual(new.tail, None)
+
+        # 1 elements
+        lst = DLL()
+        inserts = [1]
+        for i in inserts:
+            lst.insert_back(i)
+        new = remove_middle(lst)
+        self.assertEqual(lst.get_size(), 0)
+        self.assertEqual(new.head, None)
+        self.assertEqual(new.tail, None)
+
+        ## 2 elements
+        lst = DLL()
+        inserts = [1, 2]
+        for i in inserts:
+            lst.insert_back(i)
+        new = remove_middle(lst)
+        self.assertEqual(lst.get_size(), 0)
+        self.assertEqual(new.head, None)
+        self.assertEqual(new.tail, None)
 
 
 if __name__ == "__main__":

@@ -220,15 +220,18 @@ class DLL:
                     sucNode.set_previous(prevNode)
                 if prevNode is not None:
                     prevNode.set_next(sucNode)
+        self.size-=1
 
     def delete_all(self, value):
         """
         Deletes all instances of the value in the list
         :param value: the value to remove
         """
+        count = 0
         first_node = self.find_first(value)
         if first_node != None:
             while first_node != None:
+                count += 1
                 # Define the node, prevNode, sucNode
                 first_node = self.find_first(value)
                 if first_node == self.head:
@@ -250,6 +253,7 @@ class DLL:
                 if prevNode is not None:
                     prevNode.set_next(sucNode)
                 first_node = self.find_first(value)
+        self.size = self.size - count
 
     def find_first(self, value):
         """
@@ -262,7 +266,7 @@ class DLL:
             sucNode = self.head.get_next()
             prevNode = None
             while node is not None:
-                if str(value) == str(node):
+                if value == node.get_value():
                     return node
                 prevNode = node
                 if node.get_next() == None:
@@ -289,7 +293,7 @@ class DLL:
             sucNode = self.head.get_previous()
             prevNode = None
             while node is not None:
-                if str(value) == str(node):
+                if value == node.get_value():
                     return node
                 prevNode = node
                 if node.get_previous() == None:
@@ -317,7 +321,7 @@ class DLL:
             sucNode = self.head.get_next()
             prevNode = None
             while node is not None:
-                if str(value) == str(node):
+                if value == node.get_value():
                     node_list.append(node)
                 prevNode = node
                 if node.get_next() == None:
@@ -331,11 +335,11 @@ class DLL:
                     else:
                         sucNode = node.get_next()
             if len(node_list) == 0:
-                return None
+                return []
             else:
                 return node_list
         else:
-            return None
+            return []
 
     def count(self, value):
         """
@@ -343,7 +347,8 @@ class DLL:
         :param value: the value to count
         :return: [int] the count of nodes that contain the given value
         """
-        pass
+        node_list = self.find_all(value)
+        return len(node_list)
 
     def sum(self):
         """
@@ -351,7 +356,21 @@ class DLL:
         :param start: the indicator of the contents of the list
         :return: the sum of all items in the list
         """
-        pass
+        try:
+            if self.head is not None:
+                curNode = self.head
+                sum_list = []
+                while curNode is not None:
+                    sum_list.append(curNode.get_value())
+                    if curNode.get_next() == None:
+                        curNode = None
+                    else:
+                        curNode = curNode.get_next()
+                return sum(sum_list)
+            else:
+                return 0
+        except TypeError:
+            return 0
 
 
 def remove_middle(LL):
@@ -360,4 +379,45 @@ def remove_middle(LL):
     :param DLL: The doubly linked list that must be modified
     :return: The updated linked list
     """
-    pass
+    if LL.head is not None:
+        # if odd
+        if (LL.get_size() % 2) == 1:
+            if LL.get_size() == 1:
+                LL.delete_front()
+                return LL
+            else:
+                mid_point = int((LL.get_size() / 2) + 0.5)
+                curNode = LL.head
+                count = 1
+                while curNode is not None:
+                    if count == mid_point:
+                        LL.delete_value(curNode.get_value())
+                        return LL
+                    if curNode.get_next() == None:
+                        curNode = None
+                    else:
+                        curNode = curNode.get_next()
+                    count += 1
+        # if even
+        else:
+            if LL.get_size() == 2:
+                LL.delete_front()
+                LL.delete_front()
+                return LL
+            else:
+                mid_point = LL.get_size() / 2
+                curNode = LL.head
+                count = 1
+                while curNode is not None:
+                    if count == mid_point:
+                        next_node = curNode.get_next()
+                        LL.delete_value(curNode.get_value())
+                        LL.delete_value(next_node.get_value())
+                        return LL
+                    if curNode.get_next() == None:
+                        curNode = None
+                    else:
+                        curNode = curNode.get_next()
+                    count += 1
+    else:
+        return LL
