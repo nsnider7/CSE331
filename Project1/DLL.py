@@ -200,7 +200,7 @@ class DLL:
         """
         # Define the node, prevNode, sucNode
         if self.size > 0:
-            first_node = self.find_first(value)
+            first_node = self.find_first(value)  # find the value
             if first_node != None:
                 if first_node == self.head:
                     prevNode = None
@@ -220,7 +220,7 @@ class DLL:
                     sucNode.set_previous(prevNode)
                 if prevNode is not None:
                     prevNode.set_next(sucNode)
-        self.size-=1
+        self.size -= 1
 
     def delete_all(self, value):
         """
@@ -360,17 +360,22 @@ class DLL:
             if self.head is not None:
                 curNode = self.head
                 sum_list = []
+                new_lst = []
                 while curNode is not None:
                     sum_list.append(curNode.get_value())
                     if curNode.get_next() == None:
                         curNode = None
                     else:
                         curNode = curNode.get_next()
-                return sum(sum_list)
+                # print(type(sum_list[0]))
+                # if type(sum_list[0]) != int or len(sum_list) == 0 or type(sum_list[0]) != float:
+                #     return None
+                # else:
+                    return sum(sum_list)
             else:
-                return 0
+                return None
         except TypeError:
-            return 0
+            return None
 
 
 def remove_middle(LL):

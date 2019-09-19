@@ -71,6 +71,8 @@ class TestProject1(unittest.TestCase):
 
         self.assertEqual(inserts, condense(lst))
 
+
+
     def test_delete_value_all(self):
         def condense(linkedlist):
             res = list()
@@ -386,7 +388,15 @@ class TestProject1(unittest.TestCase):
         ## sum tests
         ## Empty list
         lst = DLL()
-        self.assertEqual(lst.sum(), 0)
+        self.assertEqual(lst.sum(), None)
+        ## sum of regular list
+        lst = DLL()
+        inserts = [[2], [3,4], [5,6], [5,6,7], [5]]
+        for i in inserts:
+            lst.insert_back(i)
+        self.assertEqual(lst.sum(), None)
+
+
 
         ## sum of regular list
         lst = DLL()
@@ -401,7 +411,7 @@ class TestProject1(unittest.TestCase):
         inserts = ['a', 'b', 'b', 'c', 'd']
         for i in inserts:
             lst.insert_back(i)
-        self.assertEqual(lst.sum(), 0)
+        self.assertEqual(lst.sum(), None)
 
         lst = DLL()
         inserts = [1.1, 1.1]
