@@ -360,18 +360,21 @@ class DLL:
             if self.head is not None:
                 curNode = self.head
                 sum_list = []
-                new_lst = []
+                new_val = 0
                 while curNode is not None:
                     sum_list.append(curNode.get_value())
                     if curNode.get_next() == None:
                         curNode = None
                     else:
                         curNode = curNode.get_next()
+                for i in sum_list:
+                    new_val += i
+                return new_val
                 # print(type(sum_list[0]))
                 # if type(sum_list[0]) != int or len(sum_list) == 0 or type(sum_list[0]) != float:
                 #     return None
                 # else:
-                    return sum(sum_list)
+                #     return sum(sum_list)
             else:
                 return None
         except TypeError:
