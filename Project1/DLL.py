@@ -367,11 +367,10 @@ class DLL:
                         curNode = None
                     else:
                         curNode = curNode.get_next()
-                # print(type(sum_list[0]))
-                # if type(sum_list[0]) != int or len(sum_list) == 0 or type(sum_list[0]) != float:
-                #     return None
-                # else:
-                    return sum(sum_list)
+                return_sum = type(sum_list[0])()
+                for i in sum_list:
+                    return_sum += i
+                return sum(sum_list)
             else:
                 return None
         except TypeError:
