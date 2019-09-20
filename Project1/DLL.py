@@ -360,13 +360,18 @@ class DLL:
             if self.head is not None:
                 curNode = self.head
                 sum_list = []
+<<<<<<< HEAD
                 new_val = 0
+=======
+                new_sum = 0
+>>>>>>> bb6ada78a0ce2e89df38ce8255c347aa7756f4ad
                 while curNode is not None:
                     sum_list.append(curNode.get_value())
                     if curNode.get_next() == None:
                         curNode = None
                     else:
                         curNode = curNode.get_next()
+<<<<<<< HEAD
                 for i in sum_list:
                     new_val += i
                 return new_val
@@ -375,6 +380,12 @@ class DLL:
                 #     return None
                 # else:
                 #     return sum(sum_list)
+=======
+                return_val = type(sum_list[0])()
+                for i in sum_list:
+                    return_val += i
+                return return_val
+>>>>>>> bb6ada78a0ce2e89df38ce8255c347aa7756f4ad
             else:
                 return None
         except TypeError:
