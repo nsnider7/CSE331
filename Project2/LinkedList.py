@@ -47,37 +47,133 @@ def insert(value, node=None):
         node.next = LinkedNode(value)
     return node
 
-
 def to_string(node):
-
-
+    '''
+    :param node: Head node of single linked list
+    :return: String version of the linked list
+    '''
+    if node == None:
+        return ""
+    elif node.next != None:
+        return str(node.value) + ', ' + to_string(node.next)
+    else:
+        return str(node.value)
 
 def remove(value, node):
-    pass
+    #if size of list is 1 and node.value != value
+    if node == None:
+        return None
+    elif node.value != value and node.next == None:
+        return node
+    # if only element is the one to be removed
+    elif node.next == None and node.value == value:
+        return None
+    # if list empty
 
+
+    # base case
+    if node.next == None and value != node.value:
+        remove(value, None)
+    # if value in the middle or end
+    elif node.next.value == value:
+        node.next = node.next.next
+        remove(value, node.next)
+    # if value is head and only element
+    elif node.value == value and node.next == None:
+        node.value = None
+        node.next = None
+        return None
+    # removing head
+    elif node.value == value:
+        node.value = node.next.value
+        node.next = node.next.next
+        remove(value, node.next)
+    # if just a normal middle element
+    elif node.next != None and value != node.value:
+        remove(value, node.next)
+    return node
 
 def remove_all(value, node):
-    pass
+    #if size of list is 1 and node.value != value
+    if node == None:
+        return None
+    elif node.value != value and node.next == None:
+        return node
+    # if only element is the one to be removed
+    elif node.next == None and node.value == value:
+        return None
+    # if list empty
+
+
+    # base case
+    if node.next == None and value != node.value:
+        remove(value, None)
+    # removing head
+    elif node.value == value:
+        node.value = node.next.value
+        node.next = node.next.next
+        remove(value, node.next)
+    # if value in the middle or end
+    elif node.next.value == value:
+        node.next = node.next.next
+        remove(value, node.next)
+    # if value is head and only element
+    elif node.value == value and node.next == None:
+        node.value = None
+        node.next = None
+        return None
+
+    # if just a normal middle element
+    elif node.next != None and value != node.value:
+        remove(value, node.next)
+    return node
 
 
 def search(value, node):
-    pass
-
+    if node == None:
+        return False
+    if node.value == value:
+        return True
+    elif node.value != value:
+        return search(value, node.next)
 
 def length(node):
-    pass
+    if node == None:
+        return 0
+    elif node.next != None:
+        return 1 + length(node.next)
+    else:
+        return 1 + length(node.next)
 
 
 def sum_list(node):
-    pass
+    if node == None:
+        return 0
+    elif node.next != None:
+        return node.value + sum_list(node.next)
+    else:
+        return node.value + sum_list(node.next)
+
 
 
 def count(value, node):
-    pass
+    if node == None:
+        return 0
+    elif node.value == value:
+        return 1 + count(value, node.next)
+    else:
+        return count(value, node.next)
+
 
 
 def reverse(node):
-    pass
+    if node == None:
+        return None
+    if node.next.next == None:
+        node = node.next
+        return reverse(node.next)
+    if node.next != None:
+        return reverse(node.next)
 
 
 def remove_fake_requests(head):

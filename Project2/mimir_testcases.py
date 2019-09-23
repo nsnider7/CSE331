@@ -1,6 +1,6 @@
 import unittest
 from LinkedList import insert, remove, remove_all, to_string, search, sum_list, \
-    count, reverse, length, remove_fake_requests
+    count, reverse, length, remove_fake_requests, LinkedNode
 
 
 class TestProject2(unittest.TestCase):
@@ -18,81 +18,88 @@ class TestProject2(unittest.TestCase):
         insert(1, list1)
         insert(2, list1)
         insert(3, list1)
+        test = to_string(list1)
+
 
         assert to_string(list1) == "0, 1, 2, 3"
     #
-    # def test_length(self):
-    #     list1 = insert(1)
-    #     insert(2, list1)
-    #     insert(3, list1)
+    def test_length(self):
+        list1 = insert(1)
+        insert(2, list1)
+        insert(3, list1)
+        insert(7, list1)
+        print(length(list1))
+
+        assert length(list1) == 4
+
+    def test_search(self):
+        list1 = insert(0)
+        insert(1, list1)
+        insert(2, list1)
+        value = search(2, list1)
+        print(value)
+        assert search(2, list1)
+        assert not search(3, list1)
+
+    def test_count(self):
+        list1 = insert(0)
+        insert(1, list1)
+        insert(2, list1)
+
+        assert count(0, list1) == 1
+        assert count(1, list1) == 1
+        assert count(2, list1) == 1
     #
-    #     assert length(list1) == 3
+    def test_sum_list(self):
+        list1 = insert(0)
+        insert(1, list1)
+        insert(2, list1)
+        insert(45, list1)
+        assert sum_list(list1) == 6
+
+    def test_remove(self):
+        test = LinkedNode(5)
+
+        list1 = insert(0)
+        insert(1, list1)
+        # insert(2, list1)
+        # insert(3, list1)
+        list1 = remove(1, list1)
+        assert list1.value == 0
+        # for i in [1, 2]:
+        #     assert list1.value == i
+        #     list1 = list1.next
+        # #
+        # assert list1 == None
     #
-    # def test_search(self):
-    #     list1 = insert(0)
-    #     insert(1, list1)
-    #     insert(2, list1)
+    def test_remove_all(self):
+        list1 = insert(0)
+        insert(0, list1)
+        insert(0, list1)
+        # insert(2, list1)
+        # insert(3, list1)
+        # insert(0, list1)
+
+        list1 = remove_all(0, list1)
+        print(list1)
+        assert list1 == None
+        # for i in [1, 2, 3]:
+        #     assert test_list.value == i
+        #     test_list = test_list.next
+        #
+        # assert test_list == None
     #
-    #     assert search(2, list1)
-    #     assert not search(3, list1)
-    #
-    # def test_count(self):
-    #     list1 = insert(0)
-    #     insert(1, list1)
-    #     insert(2, list1)
-    #
-    #     assert count(0, list1) == 1
-    #     assert count(1, list1) == 1
-    #     assert count(2, list1) == 1
-    #
-    # def test_sum_list(self):
-    #     list1 = insert(0)
-    #     insert(1, list1)
-    #     insert(2, list1)
-    #     insert(3, list1)
-    #
-    #     assert sum_list(list1) == 6
-    #
-    # def test_remove(self):
-    #     list1 = insert(0)
-    #     insert(1, list1)
-    #     insert(2, list1)
-    #     insert(3, list1)
-    #
-    #     list1 = remove(1, list1)
-    #     for i in [0, 2, 3]:
-    #         assert list1.value == i
-    #         list1 = list1.next
-    #
-    #     assert list1 == None
-    #
-    # def test_remove_all(self):
-    #     list1 = insert(0)
-    #     insert(1, list1)
-    #     insert(0, list1)
-    #     insert(2, list1)
-    #     insert(3, list1)
-    #     insert(0, list1)
-    #
-    #     list1 = remove_all(0, list1)
-    #     test_list = list1
-    #     for i in [1, 2, 3]:
-    #         assert test_list.value == i
-    #         test_list = test_list.next
-    #
-    #     assert test_list == None
-    #
-    # def test_reverse(self):
-    #     list1 = insert(0)
-    #     insert(1, list1)
-    #     insert(2, list1)
-    #     insert(3, list1)
-    #
-    #     list1 = reverse(list1)
-    #
-    #     for i in [3, 2, 1, 0]:
-    #         assert list1.value == i
-    #         list1 = list1.next
+    def test_reverse(self):
+        list1 = insert(0)
+        insert(1, list1)
+        insert(2, list1)
+        insert(3, list1)
+
+        list1 = reverse(list1)
+
+        for i in [3, 2, 1, 0]:
+            assert list1.value == i
+            list1 = list1.next
     #
     # def test_fake_requests(self):
     #     requests = insert(170144)
