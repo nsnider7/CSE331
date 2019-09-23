@@ -73,16 +73,25 @@ class TestProject2(unittest.TestCase):
         # assert list1 == None
     #
     def test_remove_all(self):
-        list1 = insert(0)
+        # if ele is head
+        # if ele is tail
+        # if ele is head and tail
+        # if len = 1 and ele = value
+        # if len = 2 and 2 values that need to be removed
+        # if len = 1 and ele and != value
+        # if all elements need removal
+        # regular scattered removal
+        
+        list1 = insert(1)
         insert(0, list1)
         insert(0, list1)
-        # insert(2, list1)
+        insert(0, list1)
         # insert(3, list1)
         # insert(0, list1)
 
         list1 = remove_all(0, list1)
-        print(list1)
-        assert list1 == None
+        print(list1.next)
+        assert list1.value == 1
         # for i in [1, 2, 3]:
         #     assert test_list.value == i
         #     test_list = test_list.next

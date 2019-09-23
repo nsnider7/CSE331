@@ -61,6 +61,7 @@ def to_string(node):
 
 def remove(value, node):
     #if size of list is 1 and node.value != value
+    # if list empty
     if node == None:
         return None
     elif node.value != value and node.next == None:
@@ -68,8 +69,6 @@ def remove(value, node):
     # if only element is the one to be removed
     elif node.next == None and node.value == value:
         return None
-    # if list empty
-
 
     # base case
     if node.next == None and value != node.value:
@@ -95,34 +94,33 @@ def remove(value, node):
 
 def remove_all(value, node):
     #if size of list is 1 and node.value != value
+    # if list empty
     if node == None:
         return None
     elif node.value != value and node.next == None:
         return node
     # if only element is the one to be removed
     elif node.next == None and node.value == value:
+        node.value = None
         return None
-    # if list empty
-
 
     # base case
     if node.next == None and value != node.value:
-        remove(value, None)
+        remove_all(value, None)
     # removing head
     elif node.value == value:
         node.value = node.next.value
         node.next = node.next.next
-        remove(value, node.next)
+        remove_all(value, node)
     # if value in the middle or end
     elif node.next.value == value:
         node.next = node.next.next
-        remove(value, node.next)
+        remove_all(value, node.next)
     # if value is head and only element
     elif node.value == value and node.next == None:
         node.value = None
         node.next = None
         return None
-
     # if just a normal middle element
     elif node.next != None and value != node.value:
         remove(value, node.next)
