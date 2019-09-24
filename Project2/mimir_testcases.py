@@ -72,7 +72,7 @@ class TestProject2(unittest.TestCase):
         # #
         # assert list1 == None
     #
-    def test_remove_all(self):
+    # def test_remove_all(self):
         # if ele is head
         # if ele is tail
         # if ele is head and tail
@@ -81,17 +81,17 @@ class TestProject2(unittest.TestCase):
         # if len = 1 and ele and != value
         # if all elements need removal
         # regular scattered removal
-        
-        list1 = insert(1)
-        insert(0, list1)
-        insert(0, list1)
-        insert(0, list1)
-        # insert(3, list1)
-        # insert(0, list1)
 
-        list1 = remove_all(0, list1)
-        print(list1.next)
-        assert list1.value == 1
+        # list1 = insert(1)
+        # insert(0, list1)
+        # insert(0, list1)
+        # insert(0, list1)
+        # # insert(3, list1)
+        # # insert(0, list1)
+        #
+        # list1 = remove_all(0, list1)
+        # print(list1.next)
+        # assert list1.value == 1
         # for i in [1, 2, 3]:
         #     assert test_list.value == i
         #     test_list = test_list.next
@@ -99,14 +99,14 @@ class TestProject2(unittest.TestCase):
         # assert test_list == None
     #
     def test_reverse(self):
-        list1 = insert(0)
-        insert(1, list1)
+        list1 = insert(1)
         insert(2, list1)
-        insert(3, list1)
+        # insert(3, list1)
+        # insert(3, list1)
 
         list1 = reverse(list1)
-
-        for i in [3, 2, 1, 0]:
+        print(list1.value)
+        for i in [2,1]:
             assert list1.value == i
             list1 = list1.next
     #

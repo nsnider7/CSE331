@@ -168,10 +168,18 @@ def reverse(node):
     if node == None:
         return None
     if node.next.next == None:
+        # This reverse two elements
+        temp_node = node
         node = node.next
+        temp_node.next = None
+        node.next = temp_node
+        return node
+    else:
+        temp_node = node.next
+        node.next = None
+        (temp_node).next = node
         return reverse(node.next)
-    if node.next != None:
-        return reverse(node.next)
+
 
 
 def remove_fake_requests(head):
