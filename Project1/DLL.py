@@ -429,7 +429,7 @@ def remove_middle(LL):
                 count = 1
                 while curNode is not None:
                     if count == mid_point:
-                        next_node = curNode.get_next()
+                        next_node = curNode.get_next()A
                         LL.delete_value(curNode.get_value())
                         LL.delete_value(next_node.get_value())
                         return LL

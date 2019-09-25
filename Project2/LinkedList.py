@@ -203,8 +203,9 @@ def remove_fake_requests(head):
                 head.next = head.next.next
                 if head.next == None:
                     head.value = None
+                    head.next = None
                     head = None
-                    return None
+                    return head
                 head.value = head.next.value
                 head.next = head.next.next
             # if one duplicate left
@@ -212,9 +213,42 @@ def remove_fake_requests(head):
                 head.value = head.next.value
                 head.next = head.next.next
         remove_fake_requests(head)
+
+    elif head.next != None:
+        if head.next.next != None:
+            if head.next.value == head.next.next.value:
+                head.next = head.next.next
+                remove_fake_requests(head)
+            else:
+                remove_fake_requests(head)
     else:
         remove_fake_requests(head.next)
 
+            # temp_head = head.value
+            # while the duplicates still exist
+        #     while head.value == temp_head:
+        #         # if last element return None
+        #         if head.next == None:
+        #             head.value = None
+        #             head = None
+        #             return None
+        #         # if two duplicates left
+        #         if head.value == head.next.value:
+        #             head.next = head.next.next
+        #             if head.next == None:
+        #                 head.value = None
+        #                 head.next = None
+        #                 head = None
+        #                 return head
+        #             head.value = head.next.value
+        #             head.next = head.next.next
+        #         # if one duplicate left
+        #         else:
+        #             head.value = head.next.value
+        #             head.next = head.next.next
+        #     remove_fake_requests(head)
+        # else:
+        #     remove_fake_requests(head.next)
     # if list is empty return none
     if head.value == None:
         return None

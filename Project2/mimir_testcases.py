@@ -72,7 +72,7 @@ class TestProject2(unittest.TestCase):
         # #
         # assert list1 == None
     #
-    # def test_remove_all(self):
+    def test_remove_all(self):
         # if ele is head or 2/3 at head check
         # if ele is tail or 2/3 at tail check
         # if ele is head and tail check
@@ -86,15 +86,15 @@ class TestProject2(unittest.TestCase):
         # middle 4 check
 
         list1 = insert(0)
-        insert(2, list1)
+        insert(1, list1)
 
         insert(2, list1)
-        insert(2, list1)
-        insert(2, list1)
+        insert(3, list1)
+        insert(4, list1)
         insert(4, list1)
         # insert(2, list1)
 
-        list1 = remove_all(2, list1)
+        list1 = remove_all(4, list1)
         # assert list1 == None
         for i in [0,4]:
             assert list1.value == i
@@ -127,7 +127,6 @@ class TestProject2(unittest.TestCase):
         # remove all 2v2, 2v3, 3v2, 3v3, all (any size) check
         # 1 ele check
         # only 2,3,4 to remove check
-
 
         # if no duplicates
         requests = insert(0)
@@ -241,19 +240,21 @@ class TestProject2(unittest.TestCase):
 
         # multiple
         requests = insert(1)
-        insert(1, requests)
-        insert(1, requests)
+        insert(2, requests)
+        insert(3, requests)
         # insert(3, requests)
-        insert(2, requests)
-        insert(2, requests)
-        insert(2, requests)
+        insert(4, requests)
+        insert(5, requests)
+        insert(5, requests)
         # insert(5, requests)
 
         real_requests = remove_fake_requests(requests)
+        # assert real_requests == None
+        for i in [1,2,3,4]:
+            assert real_requests.value == i
+            real_requests = real_requests.next
         assert real_requests == None
-        # for i in [4,5]:
-        #     assert real_requests.value == i
-        #     real_requests = real_requests.next
+
 
 
 
