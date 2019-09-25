@@ -55,7 +55,7 @@ class TestProject2(unittest.TestCase):
         insert(1, list1)
         insert(2, list1)
         insert(45, list1)
-        assert sum_list(list1) == 6
+        assert sum_list(list1) == 48
 
     def test_remove(self):
         test = LinkedNode(5)
@@ -73,55 +73,189 @@ class TestProject2(unittest.TestCase):
         # assert list1 == None
     #
     # def test_remove_all(self):
-        # if ele is head
-        # if ele is tail
-        # if ele is head and tail
-        # if len = 1 and ele = value
-        # if len = 2 and 2 values that need to be removed
-        # if len = 1 and ele and != value
-        # if all elements need removal
-        # regular scattered removal
+        # if ele is head or 2/3 at head check
+        # if ele is tail or 2/3 at tail check
+        # if ele is head and tail check
+        # if len = 1 and ele = value check
+        # if len = 2 and 2 values that need to be removed check
+        # if len = 1 and ele and != value check
+        # if all elements need removal check
+        # regular scattered removal check
+        # middle 2 check
+        # middle 3 check
+        # middle 4 check
 
-        # list1 = insert(1)
-        # insert(0, list1)
-        # insert(0, list1)
-        # insert(0, list1)
-        # # insert(3, list1)
-        # # insert(0, list1)
-        #
-        # list1 = remove_all(0, list1)
-        # print(list1.next)
-        # assert list1.value == 1
-        # for i in [1, 2, 3]:
-        #     assert test_list.value == i
-        #     test_list = test_list.next
-        #
+        list1 = insert(0)
+        insert(2, list1)
+
+        insert(2, list1)
+        insert(2, list1)
+        insert(2, list1)
+        insert(4, list1)
+        # insert(2, list1)
+
+        list1 = remove_all(2, list1)
+        # assert list1 == None
+        for i in [0,4]:
+            assert list1.value == i
+            list1 = list1.next
+
         # assert test_list == None
     #
     def test_reverse(self):
         list1 = insert(1)
         insert(2, list1)
-        # insert(3, list1)
+        insert(3, list1)
         # insert(3, list1)
 
         list1 = reverse(list1)
         print(list1.value)
-        for i in [2,1]:
+        for i in [3, 2, 1]:
             assert list1.value == i
             list1 = list1.next
-    #
-    # def test_fake_requests(self):
-    #     requests = insert(170144)
-    #     insert(567384, requests)
-    #     insert(604853, requests)
-    #     insert(783456, requests)
-    #     insert(783456, requests)
-    #     insert(903421, requests)
-    #
-    #     real_requests = remove_fake_requests(requests)
-    #     for i in [170144, 567384, 604853, 903421]:
-    #         assert real_requests.value == i
-    #         real_requests = real_requests.next
+
+    def test_fake_requests(self):
+        # no dups check
+        # head 2 check
+        # head 3 check
+        # head 4 check
+        # middle 2 check
+        # middle 3 check
+        # middle 4 check
+        # tail 2 check
+        # tail 3 check
+        # remove all 2v2, 2v3, 3v2, 3v3, all (any size) check
+        # 1 ele check
+        # only 2,3,4 to remove check
+
+
+        # if no duplicates
+        requests = insert(0)
+        insert(1, requests)
+        insert(2, requests)
+        insert(3, requests)
+        insert(4, requests)
+        insert(5, requests)
+        real_requests = remove_fake_requests(requests)
+        for i in [0,1,2,3,4,5]:
+            assert real_requests.value == i
+            real_requests = real_requests.next
+
+        # head 2
+        requests = insert(0)
+        insert(0, requests)
+        insert(2, requests)
+        insert(3, requests)
+        insert(4, requests)
+        insert(5, requests)
+        real_requests = remove_fake_requests(requests)
+        for i in [2,3,4,5]:
+            assert real_requests.value == i
+            real_requests = real_requests.next
+
+        # head 3
+        requests = insert(0)
+        insert(0, requests)
+        insert(0, requests)
+        insert(3, requests)
+        insert(4, requests)
+        insert(5, requests)
+        real_requests = remove_fake_requests(requests)
+        for i in [3,4,5]:
+            assert real_requests.value == i
+            real_requests = real_requests.next
+
+        # head 4
+        requests = insert(0)
+        insert(0, requests)
+        insert(0, requests)
+        insert(0, requests)
+        insert(4, requests)
+        insert(5, requests)
+        insert(6, requests)
+        real_requests = remove_fake_requests(requests)
+        for i in [4,5,6]:
+            assert real_requests.value == i
+            real_requests = real_requests.next
+
+        # middle 2
+        requests = insert(0)
+        insert(1, requests)
+        insert(2, requests)
+        insert(2, requests)
+        insert(3, requests)
+        insert(4, requests)
+        real_requests = remove_fake_requests(requests)
+        for i in [0,1,3,4]:
+            assert real_requests.value == i
+            real_requests = real_requests.next
+
+        # middle 3
+        requests = insert(0)
+        insert(1, requests)
+        insert(2, requests)
+        insert(2, requests)
+        insert(2, requests)
+        insert(4, requests)
+        real_requests = remove_fake_requests(requests)
+        for i in [0, 1, 4]:
+            assert real_requests.value == i
+            real_requests = real_requests.next
+
+        # middle 4
+        requests = insert(0)
+        insert(1, requests)
+        insert(2, requests)
+        insert(2, requests)
+        insert(2, requests)
+        insert(2, requests)
+        insert(5, requests)
+        real_requests = remove_fake_requests(requests)
+        for i in [0, 1, 5]:
+            assert real_requests.value == i
+            real_requests = real_requests.next
+
+        # tail 2/3/4 check
+        requests = insert(0)
+        insert(1, requests)
+        insert(2, requests)
+        insert(5, requests)
+        insert(5, requests)
+        insert(5, requests)
+        insert(5, requests)
+        real_requests = remove_fake_requests(requests)
+        for i in [0, 1, 2]:
+            assert real_requests.value == i
+            real_requests = real_requests.next
+
+        # multiple
+        requests = insert(0)
+        insert(0, requests)
+        insert(0, requests)
+        insert(5, requests)
+        insert(5, requests)
+        insert(5, requests)
+        # insert(6, requests)
+        real_requests = remove_fake_requests(requests)
+        assert real_requests == None
+
+        # multiple
+        requests = insert(1)
+        insert(1, requests)
+        insert(1, requests)
+        # insert(3, requests)
+        insert(2, requests)
+        insert(2, requests)
+        insert(2, requests)
+        # insert(5, requests)
+
+        real_requests = remove_fake_requests(requests)
+        assert real_requests == None
+        # for i in [4,5]:
+        #     assert real_requests.value == i
+        #     real_requests = real_requests.next
+
+
 
 
 if __name__ == "__main__":

@@ -76,7 +76,7 @@ def remove(value, node):
     # if value in the middle or end
     elif node.next.value == value:
         node.next = node.next.next
-        remove(value, node.next)
+        remove(value, node)
     # if value is head and only element
     elif node.value == value and node.next == None:
         node.value = None
@@ -90,7 +90,10 @@ def remove(value, node):
     # if just a normal middle element
     elif node.next != None and value != node.value:
         remove(value, node.next)
-    return node
+    if node.value == None:
+        return None
+    else:
+        return node
 
 def remove_all(value, node):
     #if size of list is 1 and node.value != value
@@ -102,6 +105,7 @@ def remove_all(value, node):
     # if only element is the one to be removed
     elif node.next == None and node.value == value:
         node.value = None
+        node = None
         return None
 
     # base case
@@ -115,7 +119,7 @@ def remove_all(value, node):
     # if value in the middle or end
     elif node.next.value == value:
         node.next = node.next.next
-        remove_all(value, node.next)
+        remove_all(value, node)
     # if value is head and only element
     elif node.value == value and node.next == None:
         node.value = None
@@ -124,8 +128,11 @@ def remove_all(value, node):
     # if just a normal middle element
     elif node.next != None and value != node.value:
         remove(value, node.next)
-    return node
 
+    if node.value == None:
+        return None
+    else:
+        return node
 
 def search(value, node):
     if node == None:
@@ -143,7 +150,6 @@ def length(node):
     else:
         return 1 + length(node.next)
 
-
 def sum_list(node):
     if node == None:
         return 0
@@ -151,8 +157,6 @@ def sum_list(node):
         return node.value + sum_list(node.next)
     else:
         return node.value + sum_list(node.next)
-
-
 
 def count(value, node):
     if node == None:
@@ -162,25 +166,60 @@ def count(value, node):
     else:
         return count(value, node.next)
 
-
-
 def reverse(node):
+    # if list is empty return None
     if node == None:
         return None
-    if node.next.next == None:
-        # This reverse two elements
-        temp_node = node
-        node = node.next
-        temp_node.next = None
-        node.next = temp_node
+
+    # last node has to get returned to stack
+    if node.next == None:
         return node
-    else:
-        temp_node = node.next
-        node.next = None
-        (temp_node).next = node
-        return reverse(node.next)
-
-
+    # call until last node is return and assign to head_node
+    new_head = reverse(node.next)
+    node.next.next = node
+    node.next = None
+    return new_head
 
 def remove_fake_requests(head):
-    pass
+    # if lsit is empty
+    if head == None:
+        return None
+    # base case
+    if head.next == None:
+        return head
+
+    # recursion
+    if head.value == head.next.value:
+        temp_head = head.value
+        # while the duplicates still exist
+        while head.value == temp_head:
+            # if last element return None
+            if head.next == None:
+                head.value = None
+                head = None
+                return None
+            # if two duplicates left
+            if head.value == head.next.value:
+                head.next = head.next.next
+                if head.next == None:
+                    head.value = None
+                    head = None
+                    return None
+                head.value = head.next.value
+                head.next = head.next.next
+            # if one duplicate left
+            else:
+                head.value = head.next.value
+                head.next = head.next.next
+        remove_fake_requests(head)
+    else:
+        remove_fake_requests(head.next)
+
+    # if list is empty return none
+    if head.value == None:
+        return None
+    else:
+        return head
+
+
+
