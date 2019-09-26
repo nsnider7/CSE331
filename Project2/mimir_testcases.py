@@ -129,105 +129,105 @@ class TestProject2(unittest.TestCase):
         # only 2,3,4 to remove check
 
         # # if no duplicates
-        # requests = insert(0)
-        # insert(1, requests)
-        # insert(2, requests)
-        # insert(3, requests)
-        # insert(4, requests)
-        # insert(5, requests)
-        # real_requests = remove_fake_requests(requests)
-        # for i in [0,1,2,3,4,5]:
-        #     assert real_requests.value == i
-        #     real_requests = real_requests.next
-        #
-        # # head 2
-        # requests = insert(0)
-        # insert(0, requests)
-        # insert(2, requests)
-        # insert(3, requests)
-        # insert(4, requests)
-        # insert(5, requests)
-        # real_requests = remove_fake_requests(requests)
-        # for i in [2,3,4,5]:
-        #     assert real_requests.value == i
-        #     real_requests = real_requests.next
-        #
-        # # head 3
-        # requests = insert(0)
-        # insert(0, requests)
-        # insert(0, requests)
-        # insert(3, requests)
-        # insert(4, requests)
-        # insert(5, requests)
-        # real_requests = remove_fake_requests(requests)
-        # for i in [3,4,5]:
-        #     assert real_requests.value == i
-        #     real_requests = real_requests.next
+        requests = insert(0)
+        insert(1, requests)
+        insert(2, requests)
+        insert(3, requests)
+        insert(4, requests)
+        insert(5, requests)
+        real_requests = remove_fake_requests(requests)
+        for i in [0,1,2,3,4,5]:
+            assert real_requests.value == i
+            real_requests = real_requests.next
+
+        # head 2
+        requests = insert(0)
+        insert(0, requests)
+        insert(2, requests)
+        insert(3, requests)
+        insert(4, requests)
+        insert(5, requests)
+        real_requests = remove_fake_requests(requests)
+        for i in [2,3,4,5]:
+            assert real_requests.value == i
+            real_requests = real_requests.next
+
+        # head 3
+        requests = insert(0)
+        insert(0, requests)
+        insert(0, requests)
+        insert(3, requests)
+        insert(4, requests)
+        insert(5, requests)
+        real_requests = remove_fake_requests(requests)
+        for i in [3,4,5]:
+            assert real_requests.value == i
+            real_requests = real_requests.next
         #
         # # head 4
-        # requests = insert(0)
-        # insert(0, requests)
-        # insert(0, requests)
-        # insert(0, requests)
-        # insert(4, requests)
-        # insert(5, requests)
-        # insert(6, requests)
-        # real_requests = remove_fake_requests(requests)
-        # for i in [4,5,6]:
-        #     assert real_requests.value == i
-        #     real_requests = real_requests.next
+        requests = insert(0)
+        insert(0, requests)
+        insert(0, requests)
+        insert(0, requests)
+        insert(4, requests)
+        insert(5, requests)
+        insert(6, requests)
+        real_requests = remove_fake_requests(requests)
+        for i in [4,5,6]:
+            assert real_requests.value == i
+            real_requests = real_requests.next
         #
         # # middle 2
-        # requests = insert(0)
-        # insert(1, requests)
-        # insert(2, requests)
-        # insert(2, requests)
-        # insert(3, requests)
-        # insert(4, requests)
-        # real_requests = remove_fake_requests(requests)
-        # for i in [0,1,3,4]:
-        #     assert real_requests.value == i
-        #     real_requests = real_requests.next
+        requests = insert(0)
+        insert(1, requests)
+        insert(2, requests)
+        insert(2, requests)
+        insert(3, requests)
+        insert(4, requests)
+        real_requests = remove_fake_requests(requests)
+        for i in [0,1,3,4]:
+            assert real_requests.value == i
+            real_requests = real_requests.next
         #
         # # middle 3
-        # requests = insert(0)
-        # insert(1, requests)
-        # insert(2, requests)
-        # insert(2, requests)
-        # insert(2, requests)
-        # insert(4, requests)
-        # real_requests = remove_fake_requests(requests)
-        # for i in [0, 1, 4]:
-        #     assert real_requests.value == i
-        #     real_requests = real_requests.next
+        requests = insert(0)
+        insert(1, requests)
+        insert(2, requests)
+        insert(2, requests)
+        insert(2, requests)
+        insert(4, requests)
+        real_requests = remove_fake_requests(requests)
+        for i in [0, 1, 4]:
+            assert real_requests.value == i
+            real_requests = real_requests.next
         #
         # # middle 4
-        # requests = insert(0)
-        # insert(1, requests)
-        # insert(2, requests)
-        # insert(2, requests)
-        # insert(2, requests)
-        # insert(2, requests)
-        # insert(5, requests)
-        # real_requests = remove_fake_requests(requests)
-        # for i in [0, 1, 5]:
-        #     assert real_requests.value == i
-        #     real_requests = real_requests.next
+        requests = insert(0)
+        insert(1, requests)
+        insert(2, requests)
+        insert(2, requests)
+        insert(2, requests)
+        insert(2, requests)
+        insert(5, requests)
+        real_requests = remove_fake_requests(requests)
+        for i in [0, 1, 5]:
+            assert real_requests.value == i
+            real_requests = real_requests.next
         #
-        # # tail 2/3/4 check
-        # requests = insert(0)
-        # insert(1, requests)
-        # insert(2, requests)
-        # insert(5, requests)
-        # insert(5, requests)
-        # insert(5, requests)
-        # insert(5, requests)
-        # real_requests = remove_fake_requests(requests)
-        # for i in [0, 1, 2]:
-        #     assert real_requests.value == i
-        #     real_requests = real_requests.next
+        # tail 2/3/4 check
+        requests = insert(0)
+        insert(1, requests)
+        insert(2, requests)
+        insert(3, requests)
+        insert(4, requests)
+        insert(5, requests)
+        insert(5, requests)
+        real_requests = remove_fake_requests(requests)
+        for i in [0, 1, 2, 3, 4]:
+            assert real_requests.value == i
+            real_requests = real_requests.next
         #
-        # multiple
+        # 2v2,2v3,3v2,3v3 all check
         requests = insert(0)
         insert(0, requests)
         insert(0, requests)
@@ -238,21 +238,27 @@ class TestProject2(unittest.TestCase):
         real_requests = remove_fake_requests(requests)
         assert real_requests == None
 
-        # multiple
+        # 1 ele
         requests = insert(1)
-        insert(2, requests)
-        insert(3, requests)
-        # insert(3, requests)
-        insert(5, requests)
-        insert(5, requests)
+        real_requests = remove_fake_requests(requests)
+        assert real_requests.value == 1
+
+        # 2,3,4 to remove
+        requests = insert(1)
+        insert(1, requests)
+        insert(1, requests)
+        insert(0, requests)
+        # insert(5, requests)
+        # insert(5, requests)
         # insert(5, requests)
         # insert(5, requests)
 
         real_requests = remove_fake_requests(requests)
+        assert real_requests.value == 0
+        # for i in [1,2,3]:
+        #     assert real_requests.value == i
+        #     real_requests = real_requests.next
         # assert real_requests == None
-        for i in [1,2,3]:
-            assert real_requests.value == i
-            real_requests = real_requests.next
 
 
 

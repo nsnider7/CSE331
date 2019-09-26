@@ -39,46 +39,48 @@ def insert(value, node=None):
     :param node: head node
     :return: the head node of the LinkedList
     '''
-    if node == None:
+    if node is None:
         return LinkedNode(value)
-    elif node.next != None:
+    elif node.next is not None:
         insert(value, node.next)
     else:
         node.next = LinkedNode(value)
     return node
+
 
 def to_string(node):
     '''
     :param node: Head node of single linked list
     :return: String version of the linked list
     '''
-    if node == None:
+    if node is None:
         return ""
-    elif node.next != None:
+    elif node.next is not None:
         return str(node.value) + ', ' + to_string(node.next)
     else:
         return str(node.value)
 
+
 def remove(value, node):
-    #if size of list is 1 and node.value != value
+    # if size of list is 1 and node.value != value
     # if list empty
-    if node == None:
+    if node is None:
         return None
-    elif node.value != value and node.next == None:
+    elif node.value != value and node.next is None:
         return node
     # if only element is the one to be removed
-    elif node.next == None and node.value == value:
+    elif node.next is None and node.value == value:
         return None
 
     # base case
-    if node.next == None and value != node.value:
+    if node.next is None and value != node.value:
         remove(value, None)
     # if value in the middle or end
     elif node.next.value == value:
         node.next = node.next.next
         remove(value, node)
     # if value is head and only element
-    elif node.value == value and node.next == None:
+    elif node.value == value and node.next is None:
         node.value = None
         node.next = None
         return None
@@ -88,28 +90,29 @@ def remove(value, node):
         node.next = node.next.next
         remove(value, node.next)
     # if just a normal middle element
-    elif node.next != None and value != node.value:
+    elif node.next is not None and value != node.value:
         remove(value, node.next)
-    if node.value == None:
+    if node.value is None:
         return None
     else:
         return node
 
+
 def remove_all(value, node):
-    #if size of list is 1 and node.value != value
+    # if size of list is 1 and node.value != value
     # if list empty
-    if node == None:
+    if node is None:
         return None
-    elif node.value != value and node.next == None:
+    elif node.value != value and node.next is None:
         return node
     # if only element is the one to be removed
-    elif node.next == None and node.value == value:
+    elif node.next is None and node.value == value:
         node.value = None
         node = None
         return None
 
     # base case
-    if node.next == None and value != node.value:
+    if node.next is None and value != node.value:
         remove_all(value, None)
     # removing head
     elif node.value == value:
@@ -121,58 +124,63 @@ def remove_all(value, node):
         node.next = node.next.next
         remove_all(value, node)
     # if value is head and only element
-    elif node.value == value and node.next == None:
+    elif node.value == value and node.next is None:
         node.value = None
         node.next = None
         return None
     # if just a normal middle element
-    elif node.next != None and value != node.value:
+    elif node.next is not None and value != node.value:
         remove(value, node.next)
 
-    if node.value == None:
+    if node.value is None:
         return None
     else:
         return node
 
+
 def search(value, node):
-    if node == None:
+    if node is None:
         return False
     if node.value == value:
         return True
     elif node.value != value:
         return search(value, node.next)
 
+
 def length(node):
-    if node == None:
+    if node is None:
         return 0
-    elif node.next != None:
+    elif node.next is not None:
         return 1 + length(node.next)
     else:
         return 1 + length(node.next)
+
 
 def sum_list(node):
-    if node == None:
+    if node is None:
         return 0
-    elif node.next != None:
+    elif node.next is not None:
         return node.value + sum_list(node.next)
     else:
         return node.value + sum_list(node.next)
 
+
 def count(value, node):
-    if node == None:
+    if node is None:
         return 0
     elif node.value == value:
         return 1 + count(value, node.next)
     else:
         return count(value, node.next)
 
+
 def reverse(node):
     # if list is empty return None
-    if node == None:
+    if node is None:
         return None
 
     # last node has to get returned to stack
-    if node.next == None:
+    if node.next is None:
         return node
     # call until last node is return and assign to head_node
     new_head = reverse(node.next)
@@ -180,66 +188,62 @@ def reverse(node):
     node.next = None
     return new_head
 
+
 def remove_fake_requests(head):
-    # if lsit is empty
-    if head == None:
+    # if list is empty
+    if head is None:
         return None
     # base case
-    if head.next == None:
+    if head.next is None:
         return head
-    #
-    # # recursion
-    # if head.value == head.next.value:
-    #     temp_head = head.value
-    #     # while the duplicates still exist
-    #     while head.value == temp_head:
-    #         # if last element return None
-    #         if head.next == None:
-    #             head.value = None
-    #             head = None
-    #             return None
-    #         # if two duplicates left
-    #         if head.value == head.next.value:
-    #             head.next = head.next.next
-    #             if head.next == None:
-    #                 head.value = None
-    #                 head.next = None
-    #                 head = head.next
-    #                 return None
-    #             head.value = head.next.value
-    #             head.next = head.next.next
-    #         # if one duplicate left
-    #         else:
-    #             head.value = head.next.value
-    #             head.next = head.next.next
-    #     remove_fake_requests(head)
-    if head.next.next != None:
+
+    # recursion
+    if head.next.next is not None:
         if head.next.next.value == head.next.value:
             temp_head = head.next
+            # loop on duplcate values
             while head.next.value == temp_head.value:
-                if head.next.next == None and head.value == head.next.value:
+                # if two ele in list and both need removal
+                if head.next.next is None and head.value == head.next.value:
                     head.value = None
                     head.next.value = None
                     return None
-                elif head.next.next == None:
+                elif head.next.next is None:
                     head.next = None
+                    return head
+                # if elements in middle of list need removal
                 elif head.next.value == head.value and head.value != head.next.next.value:
                     head.next = head.next.next
                     head.value = head.next.value
                     head.next = head.next.next
+                # if in middle of list just remove
                 else:
                     head.next = head.next.next
-
-
-        remove_fake_requests(head)
-
+                # check if ele is last in list
+                if head.next is None:
+                    return head
+        # if only two elements in list need removal
+        elif head.value == head.next.value:
+            head.next = head.next.next
+            head.value = head.next.value
+            head.next = head.next.next
+        # if goes from deleting to more duplcates, it must recur of same element
+        if head.value == head.next.value:
+            remove_fake_requests(head)
+        # if not duplicates then go to next ele
+        else:
+            remove_fake_requests(head.next)
+    elif head.value == head.next.value and head.next.next is None:
+        head.next = head.next.next
+        head.value = None
     else:
         remove_fake_requests(head.next)
-
-    if head.value == None:
+    # if only None in list, return None
+    if head is None:
         return None
+    # if actual value was assigned None, return None
+    elif head.value is None:
+        return None
+    # otherwise return head
     else:
         return head
-
-
-
