@@ -187,69 +187,55 @@ def remove_fake_requests(head):
     # base case
     if head.next == None:
         return head
-
-    # recursion
-    if head.value == head.next.value:
-        temp_head = head.value
-        # while the duplicates still exist
-        while head.value == temp_head:
-            # if last element return None
-            if head.next == None:
-                head.value = None
-                head = None
-                return None
-            # if two duplicates left
-            if head.value == head.next.value:
-                head.next = head.next.next
-                if head.next == None:
+    #
+    # # recursion
+    # if head.value == head.next.value:
+    #     temp_head = head.value
+    #     # while the duplicates still exist
+    #     while head.value == temp_head:
+    #         # if last element return None
+    #         if head.next == None:
+    #             head.value = None
+    #             head = None
+    #             return None
+    #         # if two duplicates left
+    #         if head.value == head.next.value:
+    #             head.next = head.next.next
+    #             if head.next == None:
+    #                 head.value = None
+    #                 head.next = None
+    #                 head = head.next
+    #                 return None
+    #             head.value = head.next.value
+    #             head.next = head.next.next
+    #         # if one duplicate left
+    #         else:
+    #             head.value = head.next.value
+    #             head.next = head.next.next
+    #     remove_fake_requests(head)
+    if head.next.next != None:
+        if head.next.next.value == head.next.value:
+            temp_head = head.next
+            while head.next.value == temp_head.value:
+                if head.next.next == None and head.value == head.next.value:
                     head.value = None
+                    head.next.value = None
+                    return None
+                elif head.next.next == None:
                     head.next = None
-                    head = None
-                    return head
-                head.value = head.next.value
-                head.next = head.next.next
-            # if one duplicate left
-            else:
-                head.value = head.next.value
-                head.next = head.next.next
+                elif head.next.value == head.value and head.value != head.next.next.value:
+                    head.next = head.next.next
+                    head.value = head.next.value
+                    head.next = head.next.next
+                else:
+                    head.next = head.next.next
+
+
         remove_fake_requests(head)
 
-    elif head.next != None:
-        if head.next.next != None:
-            if head.next.value == head.next.next.value:
-                head.next = head.next.next
-                remove_fake_requests(head)
-            else:
-                remove_fake_requests(head)
     else:
         remove_fake_requests(head.next)
 
-            # temp_head = head.value
-            # while the duplicates still exist
-        #     while head.value == temp_head:
-        #         # if last element return None
-        #         if head.next == None:
-        #             head.value = None
-        #             head = None
-        #             return None
-        #         # if two duplicates left
-        #         if head.value == head.next.value:
-        #             head.next = head.next.next
-        #             if head.next == None:
-        #                 head.value = None
-        #                 head.next = None
-        #                 head = None
-        #                 return head
-        #             head.value = head.next.value
-        #             head.next = head.next.next
-        #         # if one duplicate left
-        #         else:
-        #             head.value = head.next.value
-        #             head.next = head.next.next
-        #     remove_fake_requests(head)
-        # else:
-        #     remove_fake_requests(head.next)
-    # if list is empty return none
     if head.value == None:
         return None
     else:
