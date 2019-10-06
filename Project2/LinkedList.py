@@ -6,7 +6,7 @@ PID: A51766181
 
 
 class LinkedNode:
-    # DO NOT MODIFY THIS CLASS #
+    # DO NOT MODIFY THIS CLASS #h
     __slots__ = 'value', 'next'
 
     def __init__(self, value, next=None):
@@ -35,9 +35,10 @@ class LinkedNode:
 
 def insert(value, node=None):
     '''
+    Inserts the given value at the back of the list
     :param value: value to insert
-    :param node: head node
-    :return: the head node of the LinkedList
+    :param node: [LinkedNode] head node
+    :return: [LinkedNode] the head node of the LinkedList
     '''
     if node is None:
         return LinkedNode(value)
@@ -50,8 +51,9 @@ def insert(value, node=None):
 
 def to_string(node):
     '''
-    :param node: Head node of single linked list
-    :return: String version of the linked list
+    Turns the linked into a string
+    :param node: [LinkedNode] Head node of single linked list
+    :return: [str] String version of the linked list
     '''
     if node is None:
         return ""
@@ -62,6 +64,12 @@ def to_string(node):
 
 
 def remove(value, node):
+    '''
+    Removes the given value from the list
+    :param value: value to remove
+    :param node: [LinkedNode] Head node of linked list
+    :return: [LinkedNode] Head of list with value removed
+    '''
     # if size of list is 1 and node.value != value
     # if list empty
     if node is None:
@@ -99,6 +107,12 @@ def remove(value, node):
 
 
 def remove_all(value, node):
+    '''
+    Removes all nodes that have a value equal to param value
+    :param value: value to remove
+    :param node: [LinkedNode] Head node of list
+    :return: [LinkedNode] Head node of list with all values removed
+    '''
     # if size of list is 1 and node.value != value
     # if list empty
     if node is None:
@@ -139,6 +153,12 @@ def remove_all(value, node):
 
 
 def search(value, node):
+    '''
+    Searches to see if value is in the linked list
+    :param value: value to search for
+    :param node: [LinkedNode] head node of list
+    :return: [boolean] returns True/False depending on if value was found
+    '''
     if node is None:
         return False
     if node.value == value:
@@ -148,6 +168,11 @@ def search(value, node):
 
 
 def length(node):
+    '''
+    Finds length of the linked list
+    :param node: [LinkedNode] head node of list
+    :return: [int] length of list
+    '''
     if node is None:
         return 0
     elif node.next is not None:
@@ -157,6 +182,11 @@ def length(node):
 
 
 def sum_list(node):
+    '''
+    Finds the sum of every element in the list
+    :param node: [LinkedNode] head node of list
+    :return: [int] sum of elements in list
+    '''
     if node is None:
         return 0
     elif node.next is not None:
@@ -166,6 +196,12 @@ def sum_list(node):
 
 
 def count(value, node):
+    '''
+    Determines how many times value appears in list
+    :param value: value to count
+    :param node: [LinkedNode] head node of list
+    :return: [int] count of how many times value was in list
+    '''
     if node is None:
         return 0
     elif node.value == value:
@@ -175,6 +211,11 @@ def count(value, node):
 
 
 def reverse(node):
+    '''
+    Completely reverses the list
+    :param node: [LinkedNode] head node of list
+    :return: [LinkedNode] new head node of reversed list
+    '''
     # if list is empty return None
     if node is None:
         return None
@@ -190,6 +231,11 @@ def reverse(node):
 
 
 def remove_fake_requests(head):
+    '''
+    Removes all duplicates from sorted list
+    :param head: [LinkedNode] head node of list
+    :return: [LinkedNode] head node of list with duplicate values removed
+    '''
     # if list is empty
     if head is None:
         return None

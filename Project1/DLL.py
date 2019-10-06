@@ -385,7 +385,7 @@ class DLL:
                 for i in sum_list:
                     return_val += i
                 return return_val
->>>>>>> bb6ada78a0ce2e89df38ce8255c347aa7756f4ad
+>>>>>>> bb6ada78a0ce2e89df38ce8255c347aa7756f4a
             else:
                 return None
         except TypeError:
