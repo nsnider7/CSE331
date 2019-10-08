@@ -360,17 +360,39 @@ class DLL:
             if self.head is not None:
                 curNode = self.head
                 sum_list = []
-                new_lst = []
+<<<<<<< HEAD
+                new_val = 0
+=======
+                new_sum = 0
+>>>>>>> bb6ada78a0ce2e89df38ce8255c347aa7756f4ad
                 while curNode is not None:
                     sum_list.append(curNode.get_value())
                     if curNode.get_next() == None:
                         curNode = None
                     else:
                         curNode = curNode.get_next()
+<<<<<<< HEAD
                 return_sum = type(sum_list[0])()
                 for i in sum_list:
                     return_sum += i
                 return sum(sum_list)
+=======
+<<<<<<< HEAD
+                for i in sum_list:
+                    new_val += i
+                return new_val
+                # print(type(sum_list[0]))
+                # if type(sum_list[0]) != int or len(sum_list) == 0 or type(sum_list[0]) != float:
+                #     return None
+                # else:
+                #     return sum(sum_list)
+=======
+                return_val = type(sum_list[0])()
+                for i in sum_list:
+                    return_val += i
+                return return_val
+>>>>>>> bb6ada78a0ce2e89df38ce8255c347aa7756f4a
+>>>>>>> f8dd45701dfc1c4c3f432b1f59926dc3c8ef20cc
             else:
                 return None
         except TypeError:
@@ -414,7 +436,7 @@ def remove_middle(LL):
                 count = 1
                 while curNode is not None:
                     if count == mid_point:
-                        next_node = curNode.get_next()
+                        next_node = curNode.get_next()A
                         LL.delete_value(curNode.get_value())
                         LL.delete_value(next_node.get_value())
                         return LL
