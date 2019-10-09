@@ -1,11 +1,11 @@
 """
 PROJECT 3 - Quick/Insertion Sort
-Name: 
-PID:
+Name: Nicholas Snider
+PID: A51766181
 """
 
-from QuickSort import *
-# from Project3.QuickSort import *
+from QuickSort import quick_sort
+# from Project3.QuickSort import quick_sort
 
 
 class DLLNode:
@@ -231,41 +231,72 @@ class DLL:
     # ------------------------Complete function below---------------------------
 
     def count_unique(self):
-        compareNode = self.head
-        curNode = compareNode
+        quick_sort(self, self.head, self.tail, self.size, 3)
+        comparenode = self.head
+        curnode = comparenode
         count = 0
-        while curNode != None:
-            if compareNode.get_value() == curNode.get_value():
-                count +=1
-                curNode = curNode.get_next()
-                if curNode == None and count > 1:
-                    compareNode.get_next().set_value(count)
-                    compareNode.get_next().set_next(None)
+        while curnode is not None:
+            if comparenode.get_value() == curnode.get_value():
+                count += 1
+                curnode = curnode.get_next()
+                if curnode is None and count > 1:
+                    comparenode.get_next().set_value(count)
+                    comparenode.get_next().set_next(None)
                 # if two duplicates deal with right away
-                elif curNode != compareNode and count == 2 and curNode != None:
-                    curNode.get_previous().set_value(count)
-                    compareNode = curNode
+                elif curnode != comparenode and count == 2 and curnode is not None:
+                    curnode.get_previous().set_value(count)
+                    comparenode = curnode
                     count = 0
                 # if more than one duplicate
-                elif count > 1 and curNode.get_next() != compareNode:
-                    count +=1
+                elif count > 1 and curnode.get_next() != comparenode:
+                    count += 1
                     # if last set of duplicates is at the end
-                    if curNode.get_next() == None:
-                        compareNode.set_next(curNode)
-                        curNode.set_value(count)
-                        self.tail = curNode
-                        curNode = curNode.get_next()
-                        self.size = self.size - (count - 2)
+                    if curnode.get_next() is None:
+                        if count < 10:
+                            comparenode.set_next(curnode)
+                            curnode.set_value(count)
+                            self.tail = curnode
+                            curnode = curnode.get_next()
+                            self.size = self.size - (count - 2)
+                        elif count >= 10:
+                            comparenode.set_next(curnode)
+                            step = 0
+                            for i in str(count):
+                                step += 1
+                                curnode.set_value(int(i))
+                                if step < len(str(count)):
+                                    curnode.set_next(DLLNode(0, None, curnode))
+                                self.tail = curnode
+                                curnode = curnode.get_next()
+
+                            self.size = self.size - (count - (len(str(count)) + 1))
 
                     # if there are more elements after the set of dups
-                    elif curNode.get_next() != None:
-                        if curNode.get_next() != compareNode:
-                            compareNode.set_next(curNode)
+                    elif curnode.get_next() is not None:
+                        if curnode.get_next() != comparenode:
+                            if count < 10:
+                                comparenode.set_next(curnode)
+                                curnode.set_value(count)
+                                self.size = self.size - (count - 2)
+                                curnode = curnode.get_next()
+                                comparenode = curnode
+                                count = 0
+                            elif count >= 10:
+                                comparenode.set_next(curnode)
+                                step = 0
+                                for i in str(count):
+                                    step += 1
+                                    curnode.set_value(int(i))
+                                    if step < len(str(count)):
+                                        insertNode = DLLNode(0, curnode.get_next(), curnode)
+                                        curnode.get_next().set_previous(insertNode)
+                                        curnode.set_next(insertNode)
+                                    curnode = curnode.get_next()
+                                self.size = self.size - (count - (len(str(count)) + 1))
+                                comparenode = curnode
+                                count = 0
+
                 # reset the stepper
-                elif curNode != compareNode:
-                    compareNode = curNode
+                elif curnode != comparenode:
+                    comparenode = curnode
                     count = 0
-
-
-
-
