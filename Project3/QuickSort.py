@@ -6,7 +6,8 @@ PID:
 
 from InsertionSort import insertion_sort
 from DoublyLinkedList import DLLNode
-
+# from Project3.InsertionSort import *
+# from Project3.DoublyLinkedList import *
 
 def is_equal(Anode, Bnode):
     # if prev and next node are equal
@@ -24,8 +25,7 @@ def is_equal(Anode, Bnode):
 
 
 def quick_sort(dll, start, end, size, threshold):
-    # print(dll)
-    if size <= threshold and size > 1:
+    if size <= threshold and size > 1: # could be one idk
         insertion_sort(dll, start, end)
         return
     else:
@@ -33,24 +33,22 @@ def quick_sort(dll, start, end, size, threshold):
             return
         # returns (pivot node, size from start to pivot)
         tup = partition(start, end)
+
         if tup[0] == None:
             return
 
     # Get right hand size, start with 0 because of .get_next() call below
-    rhand_size = 1
-    val = tup[0].get_next()
+    rhand_size = 0
+    val = tup[0]
 
 
-    # Reset head and tail
-    # head = dll.get_head()
-    # tail =
-    # while head.get_previous() != None or head != None:
-    #     dll.set_head(head.get_previous())
+    # Reset tail if needed
     while dll.get_tail().get_next() != None and dll.get_tail() != None:
         dll.set_tail(dll.get_tail().get_next())
         end = dll.get_tail()
 
     while (is_equal(val,end) == False):
+    # while val is not end:
         rhand_size += 1
         val = val.get_next()
 
@@ -61,6 +59,15 @@ def quick_sort(dll, start, end, size, threshold):
 def partition(low, high):
     pivot = high
     curNode = low
+    sizeNode = low
+    # get intial size to get accurate size at end
+    count = 0
+    while sizeNode != high and sizeNode.get_next != None:
+        count +=1
+        sizeNode = sizeNode.get_next()
+        if sizeNode == high:
+            count+=1
+            break
     if curNode.get_next() == None and curNode.get_previous() == None:
         return (curNode, 0)
     while curNode != None and high != None:
@@ -68,6 +75,8 @@ def partition(low, high):
         if curNode.get_value() >= high.get_value():
             if is_equal(curNode, high):
                 break
+            # if curNode is pivot:
+            #     break
             tempNode = DLLNode(curNode.get_value())
             tempNode.set_next(high.get_next())
             tempNode.set_previous(high)
@@ -87,8 +96,10 @@ def partition(low, high):
             # If first node
             elif curNode.get_previous() == None:
                 if is_equal(curNode.get_next(), high):
+                # if curNode.get_next() is high:
                     high.set_previous(None)
                 curNode.set_value(curNode.get_next().get_value())
+                # curNode = curNode.get_next()
                 curNode.set_next(curNode.get_next().get_next())
                 curNode.get_next().set_previous(curNode)
             # if middle node
@@ -96,15 +107,47 @@ def partition(low, high):
                 curNode.get_previous().set_next(curNode.get_next())
                 curNode.get_next().set_previous(curNode.get_previous())
                 curNode = curNode.get_next()
+
         # if next value equals the pivot
         elif curNode.get_next() == high or curNode == high:
             break
         else:
             curNode = curNode.get_next()
-    size = -1
-    while high != low:
+    size = 0
+
+    # if is_equal(high, low):
+    #     size = 0
+    # else:
+    # while high is not low:
+    # incase right subset has a greater low value
+    # if low != None and high != None:
+    #     if low.get_value() > high.get_value():
+    #         new_high = low
+    #         new_low = high
+    #         new_high = new_high.get_previous()
+    #
+    #         while new_high != None and size < count - 1:
+    #             size += 1
+    #             new_high = new_high.get_previous()
+    #         return (pivot, size)
+    # if high.get_previous() == None:
+    #     size = 0
+    # elif high.get_previous().get_value() < pivot.get_value():
+    #     low = low.get_previous()
+    #     while low != None and size < count - 1:
+    #         size += 1
+    #         low = low.get_previous()
+    # else:
+    if pivot.get_previous() == None:
+        size = 0
+    elif pivot.get_previous().get_value() < low.get_value() and pivot.get_previous().get_value() < high.get_value():
+        return (high, 0)
+    pivot = pivot.get_previous()
+    while pivot != None and size < count - 1:
         size += 1
-        high = high.get_previous()
+        pivot = pivot.get_previous()
+
+
 
     # get the size from start to pivot
-    return (pivot, size)
+    return (high, size)

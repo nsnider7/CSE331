@@ -1,6 +1,6 @@
 import unittest
-from QuickSort import quick_sort
-from QuickSort import partition
+from QuickSort import *
+# from QuickSort import partition
 from DoublyLinkedList import DLL
 from InsertionSort import insertion_sort
 
@@ -14,25 +14,50 @@ class TestProject1(unittest.TestCase):
         assert dll.get_head() is None
         assert dll.get_tail() is None
 
-        orig = [6, 5, 4, 3, 2, 1]
+        orig = [3,2,1]
+        dll = DLL(orig)
+        quick_sort(dll, dll.head, dll.tail, dll.size, 0)
+
+        print(dll)
+        print(DLL(sorted(orig)))
+        # assert dll == DLL(sorted(orig))
+        assert dll.get_size() == 3
+        assert dll.get_head().get_value() == 1
+        assert dll.get_tail().get_value() == 3
+        #
+        orig = [9,2,7,1,3,6,4,5]
+        dll = DLL(orig)
+        quick_sort(dll, dll.head, dll.tail, dll.size, 4)
+
+        print(dll)
+        assert dll == DLL(sorted(orig))
+        assert dll.get_size() == 8
+        assert dll.get_head().get_value() == 1
+        assert dll.get_tail().get_value() == 9
+
+        orig = [1, 1, 1, 0, 1, 1, 1]
 
         dll = DLL(orig)
         quick_sort(dll, dll.head, dll.tail, dll.size, 4)
 
-        assert dll.get_size() == 6
-        assert dll.get_head().get_value() == 1
-        assert dll.get_tail().get_value() == 6
+        # print(dll)
+        assert dll == DLL(sorted(orig))
+        assert dll.get_size() == 7
+        assert dll.get_head().get_value() == 0
+        assert dll.get_tail().get_value() == 1
+        #
+        orig = [1,2,4,5,6,3]
+        dll = DLL(orig)
+        quick_sort(dll, dll.head, dll.tail, dll.size, 0)
+        print(dll)
+        print(dll.c)
+        assert dll == DLL(sorted(orig))
+        assert dll.c == 0
 
-        # orig = [1, 1, 1, 0, 1, 1, 1]
-        #
-        # dll = DLL(orig)
-        # quick_sort(dll, dll.head, dll.tail, dll.size, 4)
-        #
-        # assert dll.get_size() == 7
-        # assert dll.get_head().get_value() == 0
-        # assert dll.get_tail().get_value() == 1
+
 
     # def test_insertion(self):
+
     #     orig = [6, 1, 4, 7, 3, 5, 10, 8, 9, 2]
     #
     #     dll = DLL(orig)
@@ -67,32 +92,35 @@ class TestProject1(unittest.TestCase):
         # 1 ele check
         dll = DLL([2])
         test = partition(dll.get_head(), dll.get_tail())
-        print(dll)
-        print(test)
+        # print(dll)
+        # print(test)
 
         # 2 ele unsorted check
         dll = DLL([2,1])
         test = partition(dll.get_head(), dll.get_tail())
-        print(dll)
-        print(test)
+        # print(dll)
+        # print(test)
         # decending list of 4 check
         dll = DLL([4,3,2,1])
         test = partition(dll.get_head(), dll.get_tail())
-        print(dll)
-        print(test)
+        # print(dll)
+        # print(test)
 
         # random unordered list of 4
         dll = DLL([4,1,2,3])
         test = partition(dll.get_head(), dll.get_tail())
-        print(dll)
-        print(test)
+        # print(dll)
+        # print(test)
         # duplicate list
         dll = DLL([1,1,1,1,0,1,1,1])
         test = partition(dll.get_head(), dll.get_tail())
+        # print(dll)
+        # print(test)
+
+        dll = DLL([3,6,5,4])
+        test = partition(dll.get_head().get_next(), dll.get_tail())
         print(dll)
         print(test)
-
-
         # dll = DLL([2,1])
         # quick_sort(dll, dll.get_head(), dll.get_tail(), dll.get_size(), 2)
         # insertion_sort(dll, dll.get_head(), dll.get_tail())
