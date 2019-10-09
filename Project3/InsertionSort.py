@@ -20,6 +20,8 @@ def _insertion_wrapper(insertion_sort):
 @_insertion_wrapper
 def insertion_sort(dll, low, high):
     length = dll.get_size()
+    if length == 0:
+        return
     curNode = low.get_next()
     while curNode != None:
         tempNode = curNode

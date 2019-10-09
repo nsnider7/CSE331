@@ -4,8 +4,8 @@ Name:
 PID:
 """
 
-# from QuickSort import *
-from Project3.QuickSort import *
+from QuickSort import *
+# from Project3.QuickSort import *
 
 
 class DLLNode:

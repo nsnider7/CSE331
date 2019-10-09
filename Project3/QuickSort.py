@@ -4,10 +4,10 @@ Name:
 PID:
 """
 
-# from InsertionSort import insertion_sort
-# from DoublyLinkedList import DLLNode
-from Project3.InsertionSort import *
-from Project3.DoublyLinkedList import *
+from InsertionSort import insertion_sort
+from DoublyLinkedList import DLLNode
+# from Project3.InsertionSort import *
+# from Project3.DoublyLinkedList import *
 
 def is_equal(Anode, Bnode):
     # if prev and next node are equal
