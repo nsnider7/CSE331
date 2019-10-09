@@ -4,8 +4,8 @@ Name:
 PID:
 """
 
-from QuickSort import *
-# from Project3.QuickSort import *
+# from QuickSort import *
+from Project3.QuickSort import *
 
 
 class DLLNode:
@@ -231,4 +231,41 @@ class DLL:
     # ------------------------Complete function below---------------------------
 
     def count_unique(self):
-        pass
+        compareNode = self.head
+        curNode = compareNode
+        count = 0
+        while curNode != None:
+            if compareNode.get_value() == curNode.get_value():
+                count +=1
+                curNode = curNode.get_next()
+                if curNode == None and count > 1:
+                    compareNode.get_next().set_value(count)
+                    compareNode.get_next().set_next(None)
+                # if two duplicates deal with right away
+                elif curNode != compareNode and count == 2 and curNode != None:
+                    curNode.get_previous().set_value(count)
+                    compareNode = curNode
+                    count = 0
+                # if more than one duplicate
+                elif count > 1 and curNode.get_next() != compareNode:
+                    count +=1
+                    # if last set of duplicates is at the end
+                    if curNode.get_next() == None:
+                        compareNode.set_next(curNode)
+                        curNode.set_value(count)
+                        self.tail = curNode
+                        curNode = curNode.get_next()
+                        self.size = self.size - (count - 2)
+
+                    # if there are more elements after the set of dups
+                    elif curNode.get_next() != None:
+                        if curNode.get_next() != compareNode:
+                            compareNode.set_next(curNode)
+                # reset the stepper
+                elif curNode != compareNode:
+                    compareNode = curNode
+                    count = 0
+
+
+
+
