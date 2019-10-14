@@ -1,7 +1,7 @@
 """
 PROJECT 3 - Quick/Insertion Sort
-Name:
-PID:
+Name: Nicholas Snider
+PID: A51766181
 """
 
 
@@ -10,31 +10,36 @@ def _insertion_wrapper(insertion_sort):
     DO NOT EDIT
     :return:
     """
+
     def insertion_counter(*args, **kwargs):
         if args[0].size > 1:
             args[0].c += 1
         insertion_sort(*args, **kwargs)
+
     return insertion_counter
+
 
 # ------------------------Complete function below---------------------------
 @_insertion_wrapper
 def insertion_sort(dll, low, high):
+    """
+    Sort the dll using the insertion sort algorithm
+    :param dll: [DLL] dll to sort
+    :param low: [DLLNode] first node in dll
+    :param high: [DLLNode] last node in dll
+    :return: [DLL] sorted dll
+    """
     length = dll.get_size()
     if length == 0:
         return
-    curNode = low.get_next()
-    while curNode != None:
-        tempNode = curNode
-        while tempNode.get_previous() != None and tempNode.get_value() < tempNode.get_previous().get_value():
-            tempValue = tempNode.get_value()
-            tempNode.set_value(tempNode.get_previous().get_value())
-            tempNode.get_previous().set_value(tempValue)
-            tempNode = tempNode.get_previous()
-        if curNode == high:
+    curnode = low.get_next()
+    while curnode is not None:
+        tempnode = curnode
+        while tempnode.get_previous() is not None and tempnode.get_value() < tempnode.get_previous().get_value():
+            tempvalue = tempnode.get_value()
+            tempnode.set_value(tempnode.get_previous().get_value())
+            tempnode.get_previous().set_value(tempvalue)
+            tempnode = tempnode.get_previous()
+        if curnode == high:
             break
-        curNode = curNode.get_next()
-
-
-
-
-
+        curnode = curnode.get_next()

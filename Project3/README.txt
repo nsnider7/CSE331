@@ -1,7 +1,7 @@
-Name:
+Name: Nicholas Snider
 
-Hours to complete project:
+Hours to complete project: 25
 
-Feedback:
+Feedback: Very difficult
 
 External Sources (Attributions):
