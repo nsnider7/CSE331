@@ -4,8 +4,13 @@ Name: Nicholas Snider
 PID: A51766181
 """
 
+<<<<<<< HEAD
 from QuickSort import quick_sort
 # from Project3.QuickSort import quick_sort
+=======
+
+from Project3.QuickSort import quick_sort
+>>>>>>> f39e3b14ac55bc1f92fc152e7e5a0672b52e0cc7
 
 
 class DLLNode:
@@ -231,6 +236,13 @@ class DLL:
     # ------------------------Complete function below---------------------------
 
     def count_unique(self):
+<<<<<<< HEAD
+=======
+        """
+        Removes duplicates leaving only one and a count of how many were there follows
+        :return: [DLL] with duplicates removed
+        """
+>>>>>>> f39e3b14ac55bc1f92fc152e7e5a0672b52e0cc7
         quick_sort(self, self.head, self.tail, self.size, 3)
         comparenode = self.head
         curnode = comparenode

@@ -4,6 +4,7 @@ Name: Nicholas Snider
 PID: A51766181
 """
 
+<<<<<<< HEAD
 from InsertionSort import insertion_sort
 # from DoublyLinkedList import DLLNode
 # from Project3.InsertionSort import *
@@ -31,10 +32,14 @@ def is_equal(first, second):
         return True
     else:
         return False
+=======
+from Project3.InsertionSort import *
+>>>>>>> f39e3b14ac55bc1f92fc152e7e5a0672b52e0cc7
 
 
 def quick_sort(dll, start, end, size, threshold):
     """
+<<<<<<< HEAD
     quick_sort
     :param dll: the dll to sort
     :param start: start of dll to sort
@@ -42,6 +47,15 @@ def quick_sort(dll, start, end, size, threshold):
     :param size: size of dll
     :param threshold: size that if less than or equal to will send dll to insertion sort
     :return: sort dll
+=======
+    Uses the quick sort algorithm to sort the DLL
+    :param dll: [DLL] the dll to sort
+    :param start: [DLLNode] start of dll to sort
+    :param end: [DLLNode] end of dll to sort
+    :param size: [int] size of dll
+    :param threshold: [int] size that if less than or equal to will send dll to insertion sort
+    :return: [DLL] sort dll
+>>>>>>> f39e3b14ac55bc1f92fc152e7e5a0672b52e0cc7
     """
     if threshold >= size > 1:  # could be one idk
         insertion_sort(dll, start, end)
@@ -65,7 +79,11 @@ def quick_sort(dll, start, end, size, threshold):
         end = dll.get_tail()
 
     # while value is not end
+<<<<<<< HEAD
     while not is_equal(val, end):
+=======
+    while val is not end:
+>>>>>>> f39e3b14ac55bc1f92fc152e7e5a0672b52e0cc7
         rhand_size += 1
         val = val.get_next()
 
@@ -75,6 +93,7 @@ def quick_sort(dll, start, end, size, threshold):
 
 def partition(low, high):
     """
+<<<<<<< HEAD
     partition
     :param low: first element in DLL
     :param high: last element in DLL
@@ -134,8 +153,45 @@ def partition(low, high):
 
         # if next value equals the pivot
         elif curnode.get_next() == high or curnode == high:
+=======
+    partitions the DLL so that the last element is pivot and puts everything
+    less than the pivot to the less and everything greater to the right
+    :param low: [DLLNode] first element in DLL
+    :param high: [DLLNode] last element in DLL
+    :return: (tuple) pivot node and size from start to pivot
+    """
+    leftnode = low
+    rightnode = high.get_previous()
+    pivot = high
+    count = 0
+    sizenode = low
+    # get the original size
+    while sizenode is not high and sizenode.get_next() is not None:
+        count += 1
+        sizenode = sizenode.get_next()
+        if sizenode is high:
+            count += 1
+>>>>>>> f39e3b14ac55bc1f92fc152e7e5a0672b52e0cc7
             break
+    # if 1 return size 0
+    if leftnode.get_next() is None and leftnode.get_previous() is None:
+        return leftnode, 0
+    while leftnode is not rightnode and leftnode.get_previous() is not rightnode:
+        # if left is bigger than right swap
+        if leftnode.get_value() >= pivot.get_value() and rightnode.get_value() < pivot.get_value():
+            tempval = leftnode.get_value()
+            leftnode.set_value(rightnode.get_value())
+            rightnode.set_value(tempval)
+            rightnode = rightnode.get_previous()
+            leftnode = leftnode.get_next()
+        # if they're both bigger than pivot
+        elif leftnode.get_value() >= pivot.get_value() and rightnode.get_value() >= pivot.get_value():
+            rightnode = rightnode.get_previous()
+        # if they're both smaller than pivot
+        elif leftnode.get_value() <= pivot.get_value() and rightnode.get_value() <= pivot.get_value():
+            leftnode = leftnode.get_next()
         else:
+<<<<<<< HEAD
             curnode = curnode.get_next()
     size = 1
     if pivot == low:
@@ -146,3 +202,39 @@ def partition(low, high):
         pivot = pivot.get_previous()
     # get the size from start to pivot
     return high, size
+=======
+            rightnode = rightnode.get_previous()
+            leftnode = leftnode.get_next()
+
+    if rightnode is leftnode:
+        # if stops on element that is larger than pivot
+        if pivot.get_value() < leftnode.get_value():
+            tempval = leftnode.get_value()
+            leftnode.set_value(pivot.get_value())
+            pivot.set_value(tempval)
+            pivot = leftnode
+        # if stops on element that is still smaller than pivot
+        elif pivot.get_value() < leftnode.get_next().get_value():
+            leftnode = leftnode.get_next()
+            tempval = leftnode.get_value()
+            leftnode.set_value(pivot.get_value())
+            pivot.set_value(tempval)
+            pivot = leftnode
+    elif rightnode.get_next() is leftnode:
+        if pivot.get_value() < leftnode.get_value():
+            tempval = leftnode.get_value()
+            leftnode.set_value(pivot.get_value())
+            pivot.set_value(tempval)
+            pivot = leftnode
+    testpiv = pivot
+    if testpiv is low:
+        return pivot, 0
+    size = 1
+    testpiv = testpiv.get_previous()
+    # get size of left hand side
+    while testpiv != low and size < count - 1 and testpiv is not None:
+        size += 1
+        testpiv = testpiv.get_previous()
+    # get the size from start to pivot
+    return pivot, size
+>>>>>>> f39e3b14ac55bc1f92fc152e7e5a0672b52e0cc7
