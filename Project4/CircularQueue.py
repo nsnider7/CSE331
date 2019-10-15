@@ -56,7 +56,12 @@ class CircularQueue:
         return self.size
 
     def get_total(self):
-        pass
+        sum_total = 0
+        node = self.head
+        while node is not self.tail:
+            sum_total += self.data[node]
+            node+=1
+        return sum_total
 
     def head_element(self):
         return self.data[self.head]
@@ -68,25 +73,63 @@ class CircularQueue:
             return self.data[self.tail - 1]
 
     def enqueue(self, val):
-        if self.size + 1 >= self.capacity:
+        # if val is None:
+        #     return None
+        # gets index of next open index
+        emptyIndex = (self.head + self.size) % self.capacity
+        self.data[emptyIndex] = val
+        if val is not None:
+            self.size += 1
+        self.tail = emptyIndex + 1
+        # if queue needs more size
+        if self.size == self.capacity:
             self.grow()
-        queueBack = (self.head + self.size) % self.capacity
-        self.data[queueBack] = val
-        self.size += 1
-        self.tail = queueBack + 1
-
-
-
-
+        return None
 
     def dequeue(self):
-        pass
+        # if list is empty
+        if self.size is 0:
+            return None
+        return_val = self.data[self.head]
+        self.data[self.head] = None
+        # if only one element set both head and tail to 0
+        if self.size is 1:
+            self.head = 0
+            self.tail = 0
+        else:
+            self.head = (self.head + 1) % self.capacity
+        self.size -= 1
+        if (self.capacity // 2 >= 4) and (self.size <= (self.capacity * 0.25)):
+            self.shrink()
+        return return_val
+
 
     def grow(self):
+        # gets the index of start of new list
+        next_index = self.capacity
         self.capacity = self.capacity * 2
+        while next_index != self.capacity:
+            self.data.append(None)
+            next_index+=1
+
 
     def shrink(self):
-        pass
+        # calculates the number of "None"s to delete
+        delete_num = self.head - 0
+        # capacity never goes lower than 2
+        if self.capacity < 8:
+            self.capacity = 4
+        else:
+            self.capacity = self.capacity // 2
+        # delete all the "None"s in front
+        if delete_num is not 0:
+            while delete_num != 0:
+                self.data.pop(delete_num - 1)
+                delete_num-=1
+        self.data = self.data[0:self.capacity]
+        self.head = 0
+        self.tail = self.data.index(None)
+
 
 
 def threshold_sum(nums, threshold):
