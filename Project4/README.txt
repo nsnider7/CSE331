@@ -1,9 +1,8 @@
-Name:
+Name: Nicholas A Snider
 
-Hours to complete project:
+Hours to complete project: 15
 
-Feedback:
+Feedback: Great project in terms of difficulty. Application problem definitely took some thinking
 
-
-
-External Sources (Attributions): 
+External Sources (Attributions):
+ - Lecture 5, October 3rd, slides 35 and 39

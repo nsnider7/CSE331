@@ -1,5 +1,6 @@
 """
-Project 4- Solution
+CSE 331 Project 4
+Author: Nicholas Snider
 """
 
 
@@ -180,7 +181,7 @@ def threshold_sum(nums, threshold):  # [1,2,3,None,None]
     """
     find the sequence of consecutive numbers with the highest possible
     sum that is less than or equal to the threshold
-    :param nums: [list] 
+    :param nums: [list]
     :param threshold:
     :return: [tuple] (sum of elements in sequence, length of sequence)
     """
@@ -189,18 +190,22 @@ def threshold_sum(nums, threshold):  # [1,2,3,None,None]
     queue = CircularQueue()
     largest_sum = 0
     largest_seq = 0
+    # for element in nums
     for i in nums:
+        # if queue total is less than threshold enqueue
         if queue.get_total() <= threshold:
             queue.enqueue(i)
+        # remove until queue total is greater than or equal to threshold
         while queue.get_total() > threshold:
             queue.dequeue()
+        # assign largest sum and sequence appropriately
         if largest_sum < queue.get_total() <= threshold:
             largest_sum = queue.get_total()
             largest_seq = len(queue)
         if largest_sum == queue.get_total():
             if largest_seq < len(queue):
                 largest_seq = len(queue)
-
+    # if all zeros return length of original list
     if largest_sum == 0:
         if sum(nums) == 0:
             return 0, len(nums)
