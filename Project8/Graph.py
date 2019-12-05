@@ -264,10 +264,18 @@ class Graph:
 
     def dfs(self, start, target, path=None):
         start_vertex = self.get_vertex(start)
+        path.append(start_vertex)
+        if start == target: #base case
+            return_path = path.copy()
+            return [i.vertex_id for i in return_path]
+
         if not start_vertex.visited:
             start_vertex.visit()
-            for adjV in adjacent to currentV
-                RecursiveDFS(adjV)
+            for edge in start_vertex.get_edges():
+                adjV = self.get_vertex(edge.get_destination())
+                if not adjV.visited:
+                    self.dfs(adjV.vertex_id, target, path)
+                    # path = [start_vertex]
 
 
 
