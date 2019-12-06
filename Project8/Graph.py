@@ -4,7 +4,8 @@ PID:
 """
 
 import random
-
+from Project8.Heap import AdaptableHeapPriorityQueue
+# from Heap import *
 
 def generate_edges(size, connectedness):
     """
@@ -290,11 +291,19 @@ def quickest_route(filename, start, destination):
     cloud = {}  # map reachable v to its d[v] value
     pq = AdaptableHeapPriorityQueue()  # vertex v will have key d[v]
     pqlocator = {}  # map from vertex to its pq locator
-
+    bool_dest = False
+    bool_start = False
+    for v in g.get_vertices():
+        if v.vertex_id == destination:
+            bool_dest = True
+        if v.vertex_id == start:
+            bool_start = True
+    if bool_dest is False or bool_start is False:
+        return []
     # for each vertex v of the graph, add an entry to the priority queue, with
     # the source having distance 0 and all others having infinite distance
     for v in g.get_vertices():
-        if v.vertex_id is start:
+        if v.vertex_id == start:
             d[v.vertex_id] = 0
         else:
             d[v.vertex_id] = float('inf')  # syntax for positive infinity
@@ -303,7 +312,6 @@ def quickest_route(filename, start, destination):
     while not pq.is_empty():
         key, u = pq.remove_min()
         cloud[u] = key  # its correct d[u] value
-        del pqlocator[u]  # u is no longer in pq
         for e in g.get_vertex(u).get_edges():  # outgoing edges (u,v)
             v = e.get_destination()
             if v not in cloud:
@@ -311,6 +319,35 @@ def quickest_route(filename, start, destination):
                 wgt = e.get_weight()
                 if d[u] + wgt < d[v]:  # better path to v?
                     d[v] = d[u] + wgt  # update the distance
-                    pq.update(pqlocator[v], d[v], v)  # update the pq entry
+                    pq.update(pqlocator[v], d[v], v, u)  # update the pq entry
+                        #update(self,loc, newkey, newval, newprevious):
 
-    return cloud
+    dest_node = pqlocator[destination]
+    shortest_path = [destination]
+    parent_str = pq.get_previous(dest_node)
+    while True:
+        if parent_str == "":
+            # shortest_path = [start] + shortest_path
+            break
+        else:
+            shortest_path = [parent_str] + shortest_path
+            dest_node = pqlocator[parent_str]
+            parent_str = pq.get_previous(dest_node)
+    shortest_path = [cloud[destination]] + shortest_path
+    if shortest_path[0] == float('inf'):
+        return []
+    else:
+        return shortest_path
+
+
+
+# currentpath = queue.pop()
+# currentV = currentpath[-1]
+# currentV.visit()
+# if currentV.vertex_id == target:
+#     return [i.vertex_id for i in currentpath]
+# for edge in currentV.get_edges():
+#     copy_path = currentpath.copy()
+#     if self.get_vertex(edge.get_destination()).visited is False:
+#         copy_path.append(self.get_vertex(edge.get_destination()))
+#         queue.append(copy_path)
