@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cb54a0f9-4b01-41c6-8074-19857aa84c06" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/../Project5.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project8.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../Project8.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Project8.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Project8.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -201,11 +203,6 @@
           <url>file://$PROJECT_DIR$/Graphs_SourceCode/bfs.py</url>
           <line>63</line>
           <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mimir_testcases.py</url>
-          <line>107</line>
-          <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

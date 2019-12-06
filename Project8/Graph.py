@@ -118,7 +118,6 @@ class Graph:
                 e.weight = weight
             self.edges[destination.vertex_id] = Graph.Edge(self.vertex_id, destination, weight)
 
-
         def get_edge(self, destination):
             if destination in self.edges:
                 return self.edges[destination]
@@ -209,7 +208,6 @@ class Graph:
         file = open(filename, "r+")
         test_lst = []
         for i in file:
-
             i = i.split()
 
             test_lst.append(i)
@@ -234,7 +232,6 @@ class Graph:
                 elif len(i) == 3:
                     self.add_to_graph(i[0], i[1], int(i[2]))
         file.close()
-
 
     def get_vertex(self, vertex_id):
         return self.adj_map[vertex_id]
@@ -264,38 +261,56 @@ class Graph:
 
     def dfs(self, start, target, path=None):
         start_vertex = self.get_vertex(start)
-        path.append(start_vertex)
-        if start == target: #base case
-            return_path = path.copy()
-            return [i.vertex_id for i in return_path]
+        path.append(start)
+        if start == target:  # base case
+            return path
 
         if not start_vertex.visited:
             start_vertex.visit()
             for edge in start_vertex.get_edges():
                 adjV = self.get_vertex(edge.get_destination())
                 if not adjV.visited:
-                    self.dfs(adjV.vertex_id, target, path)
-                    # path = [start_vertex]
-
-
-
-
-    # start_vertex = self.get_vertex(start)
-        # stack = []
-        # stack.append([start_vertex])
-        # # path_lst.append(start_vertex.vertex_id)
-        # while stack:
-        #     currentpath = stack.pop()
-        #     currentV = currentpath[0]
-        #     currentV.visit()
-        #     if currentV.vertex_id == target:
-        #         return [i.vertex_id for i in currentpath]
-        #     for edge in currentV.get_edges():
-        #         copy_path = currentpath.copy()
-        #         if self.get_vertex(edge.get_destination()).visited is False:
-        #             copy_path.append(self.get_vertex(edge.get_destination()))
-        #             stack.append(copy_path)
+                    new_path = self.dfs(adjV.vertex_id, target, path)
+                    if new_path is not None and new_path[-1] == target:
+                        return [i for i in new_path]
+                    path.pop(-1)
 
 
 def quickest_route(filename, start, destination):
-    pass
+    """Compute shortest-path distances from src to reachable vertices of g.
+
+    Graph g can be undirected or directed, but must be weighted such that
+    e.element() returns a numeric weight for each edge e.
+
+    Return dictionary mapping each reachable vertex to its distance from src.
+    """
+    g = Graph()
+    g.construct_graph_from_file(filename)
+    d = {}  # d[v] is upper bound from s to v
+    cloud = {}  # map reachable v to its d[v] value
+    pq = AdaptableHeapPriorityQueue()  # vertex v will have key d[v]
+    pqlocator = {}  # map from vertex to its pq locator
+
+    # for each vertex v of the graph, add an entry to the priority queue, with
+    # the source having distance 0 and all others having infinite distance
+    for v in g.get_vertices():
+        if v.vertex_id is start:
+            d[v.vertex_id] = 0
+        else:
+            d[v.vertex_id] = float('inf')  # syntax for positive infinity
+        pqlocator[v.vertex_id] = pq.add(d[v.vertex_id], v.vertex_id)  # save locator for future updates
+
+    while not pq.is_empty():
+        key, u = pq.remove_min()
+        cloud[u] = key  # its correct d[u] value
+        del pqlocator[u]  # u is no longer in pq
+        for e in g.get_vertex(u).get_edges():  # outgoing edges (u,v)
+            v = e.get_destination()
+            if v not in cloud:
+                # perform relaxation step on edge (u,v)
+                wgt = e.get_weight()
+                if d[u] + wgt < d[v]:  # better path to v?
+                    d[v] = d[u] + wgt  # update the distance
+                    pq.update(pqlocator[v], d[v], v)  # update the pq entry
+
+    return cloud

@@ -107,34 +107,35 @@ class TestProject8(unittest.TestCase):
         # assert stu_path == []
         stu_path = stu.dfs('A', 'E', [])
         print(stu_path)
+
         assert stu_path == ['A','B','E']
 
-    #     stu = Graph()
-    #     stu.add_to_graph("A", "D", 0)
-    #     stu.add_to_graph("A", "B", 0)
-    #     stu.add_to_graph("B", "E", 0)
-    #     stu.add_to_graph("B", "F", 0)
-    #     stu.add_to_graph("E", "F", 0)
-    #     stu.add_to_graph("F", "C", 0)
+        stu = Graph()
+        stu.add_to_graph("A", "D", 0)
+        stu.add_to_graph("A", "B", 0)
+        stu.add_to_graph("B", "E", 0)
+        stu.add_to_graph("B", "F", 0)
+        stu.add_to_graph("E", "F", 0)
+        stu.add_to_graph("F", "C", 0)
+
+        possible_paths = [["A", "B", "F", "C"], ["A", "B", "E", "F", "C"]]
+        stu_path = stu.dfs("A", "C", [])
+        # print("Your path: ", stu_path)
+        # assert stu_path in possible_paths
     #
-    #     possible_paths = [["A", "B", "F", "C"], ["A", "B", "E", "F", "C"]]
-    #     stu_path = stu.dfs("A", "C", [])
-    #     print("Your path: ", stu_path)
-    #     assert stu_path in possible_paths
-    # #
-    # def test_quickest_route(self):
-    #     stu = quickest_route("smallSampleGraph.txt", "LincolnCenter", "EmpireState")
-    #     print("Your shortest path: ", stu)
-    #     assert stu == [3, "LincolnCenter", "TimesSquare", "EmpireState"]
-    #
-    #     stu = quickest_route("largeSampleGraph.txt", "LincolnCenter", "Brooklyn")
-    #     print("Your shortest path: ", stu)
-    #     assert stu == [10, "LincolnCenter", "TimesSquare", "EmpireState", "GramercyPark", "EastVillage",
-    #                    "LowerEastSide", "Brooklyn"]
-    #     stu = quickest_route("largeSampleGraph.txt", "Brooklyn", "Rochester")
-    #     print("Your shortest path: ", stu)
-    #     assert stu == []
-    #
+    def test_quickest_route(self):
+        stu = quickest_route("smallSampleGraph.txt", "LincolnCenter", "EmpireState")
+        print("Your shortest path: ", stu)
+        assert stu == [3, "LincolnCenter", "TimesSquare", "EmpireState"]
+
+        stu = quickest_route("largeSampleGraph.txt", "LincolnCenter", "Brooklyn")
+        print("Your shortest path: ", stu)
+        assert stu == [10, "LincolnCenter", "TimesSquare", "EmpireState", "GramercyPark", "EastVillage",
+                       "LowerEastSide", "Brooklyn"]
+        stu = quickest_route("largeSampleGraph.txt", "Brooklyn", "Rochester")
+        print("Your shortest path: ", stu)
+        assert stu == []
+
 
 if __name__ == "__main__":
     unittest.main()
