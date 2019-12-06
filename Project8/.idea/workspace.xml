@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cb54a0f9-4b01-41c6-8074-19857aa84c06" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/../Project8.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../Project8.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Project8.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Project8.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/Graph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mimir_testcases.py" beforeDir="false" afterPath="$PROJECT_DIR$/mimir_testcases.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smallSampleGraph.txt" beforeDir="false" afterPath="$PROJECT_DIR$/smallSampleGraph.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -175,6 +175,7 @@
       <workItem from="1575315742885" duration="2373000" />
       <workItem from="1575392256563" duration="13579000" />
       <workItem from="1575568240485" duration="1343000" />
+      <workItem from="1575654523599" duration="1882000" />
     </task>
     <servers />
   </component>

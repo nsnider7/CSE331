@@ -62,12 +62,24 @@ class Graph:
         __str__ = __repr__
 
         def get_start(self):
+            """
+            Gets the edges starting vertex id
+            :return: vertex_id of any type
+            """
             return self.start
 
         def get_destination(self):
+            """
+            Gets the edges destination vertex_id
+            :return: vertex_id of destination
+            """
             return self.destination.vertex_id
 
         def get_weight(self):
+            """
+            Get's the weight of the edge
+            :return: [int] weight of edge
+            """
             return self.weight
 
     class Vertex:
@@ -101,17 +113,25 @@ class Graph:
         __str__ = __repr__
 
         def degree(self):
+            """
+            Finds the degree of the vertex
+            :return: [int] number of edges on current curent
+            """
             return len(self.edges)
 
         def visit(self):
+            """
+            Sets the vertex's visit value to True
+            :return: None
+            """
             self.visited = True
 
         def insert_edge(self, destination, weight):
             """
             Adds an edge representation into the edge map between the vertex and the given
-            :param destination:
-            :param weight:
-            :return:
+            :param destination: [Vertex] destination vertex
+            :param weight: [int] weight of edge between source and destination
+            :return: None
             """
             # # check to see if current vertex and destination already have edge
             if self.get_edge(destination.vertex_id) is not None:  # includes error checking
@@ -120,12 +140,21 @@ class Graph:
             self.edges[destination.vertex_id] = Graph.Edge(self.vertex_id, destination, weight)
 
         def get_edge(self, destination):
+            """
+            Finds the edge with the given destination
+            :param destination: [vertex] destination vertex
+            :return:  [Edge] returns edge if found, None if not found
+            """
             if destination in self.edges:
                 return self.edges[destination]
             else:
                 return None
 
         def get_edges(self):
+            """
+            Creates a list of all th vertex's edges
+            :return: [list] list of edges
+            """
             edge_list = []
             for e in self.edges.values():
                 edge_list.append(e)
@@ -149,12 +178,12 @@ class Graph:
 
     def add_to_graph(self, source, dest=None, weight=0):
         """
-        Inserts a vertex into the graph and will create an edge if a destination and weight
-        are provided. If the source or destination vertex does not exist in the graph then one will be created.
-        :param source:
-        :param dest:
-        :param weight:
-        :return:
+        Adds the source and destination to the graph with an edge. If parameters already in graph, connect
+        them with an edge
+        :param source: vertex_id of source already in graph or to create
+        :param dest: vertex_id of destination already in graph or to create
+        :param weight: [int] weight of edge
+        :return: No return
         """
         source_vertex = self.Vertex(source)
         # if there is a element in the dest parameter
@@ -201,13 +230,13 @@ class Graph:
 
     def construct_graph_from_file(self, filename):
         """
-        A line in the file could also have just a source or it could have a source and destination,
-        but no weight. Make sure that if the sources/destinations are integers that they are converted to integers properly
-        :param filename:
-        :return:
+        Adds the information passed in through the file to the graph
+        :param filename: [string] file name
+        :return: No return
         """
         file = open(filename, "r+")
         test_lst = []
+        # Add all potential vertices to list
         for i in file:
             i = i.split()
 
@@ -235,9 +264,18 @@ class Graph:
         file.close()
 
     def get_vertex(self, vertex_id):
+        """
+        Given vertex_id retrieve the corresponding vertex object
+        :param vertex_id: Vertex_id of vertex to grab
+        :return: [Vertex] vertex that has the pass in vertex_id
+        """
         return self.adj_map[vertex_id]
 
     def get_vertices(self):
+        """
+        Creates a lust of all the vertices in the graph
+        :return: [list] list containing all the vertices in graph
+        """
         # adj_map is vertex_id:vertex
         vertex_list = []
         for key, val in self.adj_map.items():
@@ -245,6 +283,13 @@ class Graph:
         return vertex_list
 
     def bfs(self, start, target, path=None):
+        """
+        Does a breadth first search to find the path from start to target
+        :param start: [vertex_id] start vertex
+        :param target:  [vertex_id] target vertex
+        :param path: [list] path from start to target
+        :return: [list] list of vertex_ids from start to target
+        """
         start_vertex = self.get_vertex(start)
         queue = []
         queue.append([start_vertex])
@@ -261,6 +306,13 @@ class Graph:
                     queue.append(copy_path)
 
     def dfs(self, start, target, path=None):
+        """
+        Does a depth first search to find the path from start to target
+        :param start: [vertex_id] start vertex
+        :param target:  [vertex_id] target vertex
+        :param path: [list] path from start to target
+        :return: [list] list of vertex_ids from start to target
+        """
         start_vertex = self.get_vertex(start)
         path.append(start)
         if start == target:  # base case
@@ -268,22 +320,25 @@ class Graph:
 
         if not start_vertex.visited:
             start_vertex.visit()
+            # get each edge attached to vertex
             for edge in start_vertex.get_edges():
                 adjV = self.get_vertex(edge.get_destination())
                 if not adjV.visited:
+                    # recursively call dfs downt that path
                     new_path = self.dfs(adjV.vertex_id, target, path)
+                    # if last element = target return that list
                     if new_path is not None and new_path[-1] == target:
                         return [i for i in new_path]
+                    # if last not equal pop it and continue through vertices
                     path.pop(-1)
 
 
 def quickest_route(filename, start, destination):
-    """Compute shortest-path distances from src to reachable vertices of g.
-
-    Graph g can be undirected or directed, but must be weighted such that
-    e.element() returns a numeric weight for each edge e.
-
-    Return dictionary mapping each reachable vertex to its distance from src.
+    """Compute shortest-path from start to destination
+    :param filename: filename that contains elements to add to the graph
+    :param start: [vertex_id] vertex to start on
+    :param destination: [vertex_id] destination to find path to
+    :return: [list] first element is total weight followed by the path taken
     """
     g = Graph()
     g.construct_graph_from_file(filename)
@@ -322,32 +377,25 @@ def quickest_route(filename, start, destination):
                     pq.update(pqlocator[v], d[v], v, u)  # update the pq entry
                         #update(self,loc, newkey, newval, newprevious):
 
+    # locate destination node in the priority queue
     dest_node = pqlocator[destination]
     shortest_path = [destination]
+    # get previous of
     parent_str = pq.get_previous(dest_node)
+    # backtrack through the queue and using get_previous find shortest path
     while True:
-        if parent_str == "":
-            # shortest_path = [start] + shortest_path
+        if parent_str == "":  # root node will not have a previous
             break
         else:
+            # add previous to shortest path and find next parent
             shortest_path = [parent_str] + shortest_path
             dest_node = pqlocator[parent_str]
             parent_str = pq.get_previous(dest_node)
+    # using cloud dictionary pull on totaly weight length
     shortest_path = [cloud[destination]] + shortest_path
+    # if there is not a path or vertices aren't connect return empty list
     if shortest_path[0] == float('inf'):
         return []
     else:
         return shortest_path
 
-
-
-# currentpath = queue.pop()
-# currentV = currentpath[-1]
-# currentV.visit()
-# if currentV.vertex_id == target:
-#     return [i.vertex_id for i in currentpath]
-# for edge in currentV.get_edges():
-#     copy_path = currentpath.copy()
-#     if self.get_vertex(edge.get_destination()).visited is False:
-#         copy_path.append(self.get_vertex(edge.get_destination()))
-#         queue.append(copy_path)
