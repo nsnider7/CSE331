@@ -135,8 +135,8 @@ class Graph:
             """
             # # check to see if current vertex and destination already have edge
             if self.get_edge(destination.vertex_id) is not None:  # includes error checking
-                e = self.get_edge(destination.vertex_id)
-                e.weight = weight
+                edge = self.get_edge(destination.vertex_id)
+                edge.weight = weight
             self.edges[destination.vertex_id] = Graph.Edge(self.vertex_id, destination, weight)
 
         def get_edge(self, destination):
@@ -156,8 +156,8 @@ class Graph:
             :return: [list] list of edges
             """
             edge_list = []
-            for e in self.edges.values():
-                edge_list.append(e)
+            for edge in self.edges.values():
+                edge_list.append(edge)
             return edge_list
 
     def __init__(self):
@@ -178,8 +178,8 @@ class Graph:
 
     def add_to_graph(self, source, dest=None, weight=0):
         """
-        Adds the source and destination to the graph with an edge. If parameters already in graph, connect
-        them with an edge
+        Adds the source and destination to the graph with an edge. If parameters
+        already in graph, connect them with an edge
         :param source: vertex_id of source already in graph or to create
         :param dest: vertex_id of destination already in graph or to create
         :param weight: [int] weight of edge
@@ -251,7 +251,8 @@ class Graph:
                         self.add_to_graph(i[0])
                 elif len(i) == 2:
                     # both are integers
-                    if (isinstance(i[0], str) and i[0].isdigit()) and (isinstance(i[1], str) and i[1].isdigit()):
+                    if (isinstance(i[0], str) and i[0].isdigit()) and (isinstance(i[1],
+                                                                                  str) and i[1].isdigit()):
                         self.add_to_graph(int(i[0]), int(i[1]))
                     # dest is an integer
                     elif isinstance(i[1], str) and i[1].isdigit():
@@ -278,8 +279,8 @@ class Graph:
         """
         # adj_map is vertex_id:vertex
         vertex_list = []
-        for key, val in self.adj_map.items():
-            vertex_list.append(val)
+        for value in self.adj_map.values():
+            vertex_list.append(value)
         return vertex_list
 
     def bfs(self, start, target, path=None):
@@ -362,7 +363,8 @@ def quickest_route(filename, start, destination):
             d[v.vertex_id] = 0
         else:
             d[v.vertex_id] = float('inf')  # syntax for positive infinity
-        pqlocator[v.vertex_id] = pq.add(d[v.vertex_id], v.vertex_id)  # save locator for future updates
+        # save locator for future updates
+        pqlocator[v.vertex_id] = pq.add(d[v.vertex_id], v.vertex_id)
 
     while not pq.is_empty():
         key, u = pq.remove_min()
